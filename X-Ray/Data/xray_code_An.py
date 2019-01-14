@@ -37,6 +37,8 @@ s.plot.xy.data([peak1[0],peak2[0],peak3[0],peak4[0],peak5[0]],\
                 label = alloy_legend,\
                 legend = 'right')
 
+s.plot.xy.data([peak1[0],peak2[0],peak3[0],peak4[0],peak5[0]],\
+                [peak1[1],peak2[1],peak3[1],peak4[1],peak5[1]])
 
 
 
