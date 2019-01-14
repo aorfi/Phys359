@@ -21,7 +21,7 @@ ROOT2 = 2.0**0.5 # Code speedup
 
 ### FITTING
 # Voigt function
-def voigt(x, sigma=1, gamma=1):
+def voigt(x, sigma, gamma):
     """
     Returns a Voigt function (a convolution of a Lorentzian and Gaussian) 
     centered at x=0 with Gaussian standard deviation sigma and Lorentzian 
@@ -41,8 +41,10 @@ def voigt(x, sigma=1, gamma=1):
 # Create a fitter object
 f = s.data.fitter()
 
-# Define the fit functions (in this case, the sum of two Lorentzians) and floating parameters.
-f.set_functions('A*V(x-x0,s,a)', 'A, x0, s, a', V=voigt)
+# Define the fit functions (in this case, the sum of two Lorentzians) 
+# and floating parameters.
+f.set_functions('A1*V(x-x1,s1,a1)+ A2*V(x-x2,s2,a2) + A3*V(x-x3,s3,a3) + A4*V(x-x4,s4,a4) + A5*V(x-x5,s5,a5)',\
+                'A1, x1, s1, a1, A2, x2, s2, a2, A3, x3, s3, a3, A4, x4, s4, a4, A5, x5, s5, a5', V=voigt)
 
 # Load a *.txt data file
 d = s.data.load(filters="*.UXD")
@@ -57,10 +59,18 @@ f.set_data(xdata=d[0], ydata=d[1], eydata=y_error)
 # Fun trick: have the user click to make guess parameters!
 print("CLICK THE PEAKS!!")
 click_x1, click_y1 = f.ginput()[0]
-#click_x2, click_y2 = f.ginput()[0]
+click_x2, click_y2 = f.ginput()[0]
+click_x3, click_y3 = f.ginput()[0]
+click_x4, click_y4 = f.ginput()[0]
+click_x5, click_y5 = f.ginput()[0]
+
 
 # make a better guess for a and x0, trim the data, and label the axes!
-f.set(A=click_y1, x0=click_x1,
+f.set(A1=click_y1, x1=click_x1,
+      A2=click_y2, x2=click_x2,
+      A3=click_y3, x3=click_x3,
+      A4=click_y4, x4=click_x4,
+      A5=click_y5, x5=click_x5,
       xlabel='Pants (mV)',
       ylabel='Shoes (nm)')
 
