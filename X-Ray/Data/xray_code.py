@@ -56,11 +56,11 @@ f5.set_data(xdata=d[0], ydata=d[1], eydata=y_error)
 # Set some of the guess parameters
 #f.set(s1 = 0.2, a1 = 0.2, s2= 0.2, a2 = 0.2, s3= 0.2, a3 = 0.2,s4= 0.2, a4 = 0.2,\
 #      s5 = 0.2, a5 = 0.2, ymin = 10)
-f1.set(s1 = 0.2, a1 = 0.2, ymin = 10)
-f2.set(s2 = 0.2, a2 = 0.2, ymin = 10)
-f3.set(s3 = 0.2, a3 = 0.2, ymin = 10)
-f4.set(s4 = 0.2, a4 = 0.2, ymin = 10)
-f5.set(s5 = 0.2, a5 = 0.2, ymin = 10)
+f1.set(s1 = 0.2, a1 = 0.2, ymin = 15, plot_guess = 'False')
+f2.set(s2 = 0.2, a2 = 0.2, ymin = 15, plot_guess = 'False')
+f3.set(s3 = 0.2, a3 = 0.2, ymin = 15, plot_guess = 'False')
+f4.set(s4 = 0.2, a4 = 0.2, ymin = 15, plot_guess = 'False')
+f5.set(s5 = 0.2, a5 = 0.2, ymin = 15, plot_guess = 'False')
 
 # Fun trick: have the user click to make guess parameters!
 print("CLICK THE PEAKS!!")
@@ -77,10 +77,10 @@ f5.set(xmin = click_x5 - 20, xmax = click_x5 + 20)
 
 
 # make a better guess for a and x0, trim the data, and label the axes!
-f1.set(A1=click_y1, x1=click_x1, plot_guess = 'False')
-f2.set(A2=click_y2, x2=click_x2, plot_guess = 'False')
-f3.set(A3=click_y3, x3=click_x3, plot_guess = 'False')
-f4.set(A4=click_y4, x4=click_x4, plot_guess = 'False')
+f1.set(A1=click_y1, x1=click_x1)
+f2.set(A2=click_y2, x2=click_x2)
+f3.set(A3=click_y3, x3=click_x3)
+f4.set(A4=click_y4, x4=click_x4)
 f5.set(A5=click_y5, x5=click_x5, plot_guess = 'False')
 
 
