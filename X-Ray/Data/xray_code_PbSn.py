@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jan 20 20:25:59 2019
+
+@author: vuongthaian
+"""
+
 import spinmob as s
 from numpy import pi, exp, real
 from scipy.special import wofz, erf
@@ -23,8 +31,8 @@ def voigt(x, sigma, gamma):
     """
     return real(wofz((x + 1j*gamma)/sigma/ROOT2)) / sigma / (2*pi)**0.5            
 ## Initiate file names and stuffs 
-files = ['Cu-100-09-01.UXD', 'Cu-75-Ni-25-09-01.UXD', 'Cu-50-Ni-50-09-01.UXD',
-         'Cu-25-Ni-75-10-01.UXD', 'Ni-100-09-01.UXD'] 
+files = ['Pb-100-10-01.UXD', 'Pb-75-Sn-25-14-01.UXD', 'Pb-50-Sn-50-14-01.UXD',
+         'Pb-25-Sn-75-14-01.UXD', 'Sn-100-10-01.UXD'] 
 theta2 = []
 theta2_err = []
 
