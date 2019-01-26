@@ -16,7 +16,7 @@ Created on Wed Jan 16 15:18:29 2019
 
 import spinmob as s
 
-peak1 = s.data.load('Pb-100-10-01.UXD')
+peak1 = s.data.load('Pb-100-24-01.UXD')
 peak2 = s.data.load('Pb-75-Sn-25-14-01.UXD')
 peak3 = s.data.load('Pb-50-Sn-50-14-01.UXD')
 peak4 = s.data.load('Pb-25-Sn-75-14-01.UXD')
@@ -36,13 +36,13 @@ f4 = int((final4 - initial)/0.05)
 
 
 
-s.plot.xy.data([peak1[0],peak2[0],peak3[0],peak4[0],peak5[0]],\
-                [peak1[1],peak2[1],peak3[1],peak4[1],peak5[1]],\
-                yshift = 150,\
-                xlabel = '2'r'$\theta$',\
-                ylabel = 'Intensity [Counts]',\
-                label = alloy_legend,\
-                legend = 'right')
+#s.plot.xy.data([peak1[0],peak2[0],peak3[0],peak4[0],peak5[0]],\
+#                [peak1[1],peak2[1],peak3[1],peak4[1],peak5[1]],\
+#                yshift = 150,\
+#                xlabel = '2'r'$\theta$',\
+#                ylabel = 'Intensity [Counts]',\
+#                label = alloy_legend,\
+#                legend = 'right')
 
 #s.plot.xy.data([peak1[0][f1:f2],peak2[0][f1:f2],peak3[0][f1:f2],peak4[0][f1:f2],peak5[0][f1:f2]],\
 #                [peak1[1][f1:f2],peak2[1][f1:f2],peak3[1][f1:f2],peak4[1][f1:f2],peak5[1][f1:f2]],\
@@ -59,3 +59,5 @@ s.plot.xy.data([peak1[0],peak2[0],peak3[0],peak4[0],peak5[0]],\
 #                ylabel = 'Intensity [Counts]',\
 #                label = alloy_legend,\
 #                legend = 'left')
+
+s.plot.xy.data(peak1[0], peak1[1])
