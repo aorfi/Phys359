@@ -49,8 +49,8 @@ for num in range (1,2):
     
     # Define the fit functions (in this case, the sum of two Lorentzians) 
     # and floating parameters.
-    f.set_functions('A1*V(x-x1,s1,a1) + A2*V(x-x2,s2,a2)',
-                    'A1, x1, s1, a1, A2, x2, s2, a2', V= voigt)
+    f.set_functions('A1*V(x-x1,s1,a1) + A2*V(x-x2,s2,a2) +c',
+                    'A1, x1, s1, a1, A2, x2, s2, a2,c=10', V= voigt)
    
     
     # Load a *.txt data file
@@ -58,13 +58,13 @@ for num in range (1,2):
     
     # Stick the data into the fitter object
     y_error = d[1]**(1/2)
-    f.set_data(xdata=d[0], ydata=d[1], eydata=y_error)
+    f.set_data(xdata=d[0][2500:2700], ydata=d[1][2500:2700], eydata=y_error[2500:2700])
               
     
     # Set some of the guess parameters
 
-    f.set(s1 = 0.2, a1 = 0.2, ymin = 10)
-    f.set(s2 = 0.2, a2 = 0.2, ymin = 10)
+    f.set(s1 = 0.01, a1 = 0.01, ymin = 10)
+    f.set(s2 = 0.01, a2 = 0.01, ymin = 10)
    
     
     # Fun trick: have the user click to make guess parameters!
@@ -72,20 +72,20 @@ for num in range (1,2):
     click_x1, click_y1 = f.ginput()[0]
     click_x2, click_y2 = f.ginput()[0]
     
-    f.set(xmin = click_x1 - 20, xmax = click_x1 + 20)
+    f.set(xmin = click_x1 - 2.5, xmax = click_x1 + 2.5)
     
     
     
     # make a better guess for a and x0, trim the data, and label the axes!
     f.set(A1=click_y1, x1=click_x1, 
           A2=click_y2, x2=click_x2,
-          plot_guess = False, xlabel = '2'r'$\theta$',
+          plot_guess = True, xlabel = '2'r'$\theta$',
           ylabel = 'Intensity [Counts]')
     
     
     
     # Fit!
-    
+    f.trim()
     f.fit()
     
     a = f.results
@@ -97,7 +97,7 @@ for num in range (1,2):
         
     
     # show the results (see spinmob wiki for more details!)
-#    print(f1)
+    print(f)
 #    print(f2)
 #    print(f3)
 #    print(f4)
