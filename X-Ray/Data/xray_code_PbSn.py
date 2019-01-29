@@ -7,6 +7,7 @@ Created on Sun Jan 20 20:25:59 2019
 """
 
 import spinmob as s
+import numpy as np
 from numpy import pi, exp, real
 from scipy.special import wofz, erf
 ROOT2 = 2.0**0.5 # Code speedup
@@ -49,16 +50,17 @@ for num in range (1,2):
     
     # Define the fit functions (in this case, the sum of two Lorentzians) 
     # and floating parameters.
-    f.set_functions('A1*V(x-x1,s1,a1) + A2*V(x-x2,s2,a2) +c',
-                    'A1, x1, s1, a1, A2, x2, s2, a2,c=10', V= voigt)
-   
+    f.set_functions('A1*V(x-x1,s1,a1) + A2*V(x-(x1+0.265),s2,a2) +c',
+                    'A1, x1, s1, a1, A2, s2, a2,c=10', V= voigt)
     
+
+
     # Load a *.txt data file
     d = s.data.load(files[0])
     
     # Stick the data into the fitter object
     y_error = d[1]**(1/2)
-    f.set_data(xdata=d[0][2500:2700], ydata=d[1][2500:2700], eydata=y_error[2500:2700])
+    f.set_data(xdata=d[0][2700:2760], ydata=d[1][2700:2760], eydata=y_error[2700:2760])
               
     
     # Set some of the guess parameters
@@ -78,7 +80,7 @@ for num in range (1,2):
     
     # make a better guess for a and x0, trim the data, and label the axes!
     f.set(A1=click_y1, x1=click_x1, 
-          A2=click_y2, x2=click_x2,
+          A2=click_y2, 
           plot_guess = True, xlabel = '2'r'$\theta$',
           ylabel = 'Intensity [Counts]')
     
