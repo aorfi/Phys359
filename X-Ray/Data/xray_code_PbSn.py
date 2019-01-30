@@ -50,8 +50,8 @@ for num in range (1,2):
     
     # Define the fit functions (in this case, the sum of two Lorentzians) 
     # and floating parameters.
-    f.set_functions('A1*V(x-x1,s1,a1) + A2*V(x-(x1+0.265),s2,a2) +c',
-                    'A1, x1, s1, a1, A2, s2, a2,c=10', V= voigt)
+    f.set_functions('A1*V(x-x1,s1,a1) + A2*V(x-x2,s2,a2) +c',
+                    'A1, x1, s1, a1,x2, A2, s2, a2, c=0', V= voigt)
     
 
 
@@ -60,13 +60,16 @@ for num in range (1,2):
     
     # Stick the data into the fitter object
     y_error = d[1]**(1/2)
-    f.set_data(xdata=d[0][2700:2760], ydata=d[1][2700:2760], eydata=y_error[2700:2760])
+    #numbers between which to slice the data file to "zoom" into the peaks 
+    n = 390
+    m = 490
+    f.set_data(xdata=d[0][n:m], ydata=d[1][n:m], eydata=y_error[n:m])
               
     
     # Set some of the guess parameters
 
-    f.set(s1 = 0.01, a1 = 0.01, ymin = 10)
-    f.set(s2 = 0.01, a2 = 0.01, ymin = 10)
+    f.set(s1 = 0.1, a1 = 0.1, ymin = 5)
+    f.set(s2 = 0.1, a2 = 0.1, ymin = 5)
    
     
     # Fun trick: have the user click to make guess parameters!
@@ -74,13 +77,13 @@ for num in range (1,2):
     click_x1, click_y1 = f.ginput()[0]
     click_x2, click_y2 = f.ginput()[0]
     
-    f.set(xmin = click_x1 - 2.5, xmax = click_x1 + 2.5)
+    f.set(xmin = click_x1 - 2, xmax = click_x1 + 2)
     
     
     
     # make a better guess for a and x0, trim the data, and label the axes!
     f.set(A1=click_y1, x1=click_x1, 
-          A2=click_y2, 
+          A2=click_y2, x2 =click_x2,
           plot_guess = True, xlabel = '2'r'$\theta$',
           ylabel = 'Intensity [Counts]')
     
