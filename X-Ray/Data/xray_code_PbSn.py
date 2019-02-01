@@ -6,6 +6,11 @@ Created on Sun Jan 20 20:25:59 2019
 @author: vuongthaian
 """
 
+
+                        ## CODE TO FIT DOUBLE PEAKS !!!!!
+
+
+
 import spinmob as s
 import numpy as np
 from numpy import pi, exp, real
@@ -36,6 +41,7 @@ files_pbsn = ['Pb-100-24-01.UXD',  'Pb-75-Sn-25-14-01.UXD', 'Pb-50-Sn-50-14-01.U
          'Pb-25-Sn-75-14-01.UXD', 'Sn-100-10-01.UXD'] 
 files_cuni = ['Cu-100-09-01.UXD', 'Cu-75-Ni-25-09-01.UXD', 'Cu-50-Ni-50-09-01.UXD', 
               'cu-25-ni-75-10-01.UXD', 'Ni-100-09-01.UXD'] 
+files_cuau = ['cuAu-sampleA-14-01.UXD', 'cu3Au-SampleB-14-01.UXD']
 theta2 = []
 theta2_err = []
 angle1 = []
@@ -58,20 +64,20 @@ for num in range (1,2):
 
 
     # Load a *.txt data file
-    d = s.data.load(files_pbsn[0])
+    d = s.data.load(files_cuau[0])
     
     # Stick the data into the fitter object
     y_error = d[1]**(1/2)
     #numbers between which to slice the data file to "zoom" into the peaks 
-    n = 390
-    m = 490
+    n = 700
+    m = 850
     f.set_data(xdata=d[0][n:m], ydata=d[1][n:m], eydata=y_error[n:m])
               
     
     # Set some of the guess parameters
 
-    f.set(s1 = 0.1, a1 = 0.1, ymin = 5)
-    f.set(s2 = 0.1, a2 = 0.1, ymin = 5)
+    f.set(s1 = 0.02, a1 = 0.02, ymin = 5)
+    f.set(s2 = 0.02, a2 = 0.02, ymin = 5)
    
     
     # Fun trick: have the user click to make guess parameters!
