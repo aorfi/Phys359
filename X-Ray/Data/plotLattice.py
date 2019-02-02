@@ -57,7 +57,7 @@ sin2_er = np.multiply(w2theta_er, np.cos(w2theta))
 sin_mean = np.sin(mean_theta);
 sin_mean_er = np.multiply(mean_theta_er, np.cos(sin_mean));
 
-for i in range(0,5):
+for i in range(1,3):
     # Create a fitter object
     f = s.data.fitter()
     #f2 = s.data.fitter()
@@ -77,7 +77,7 @@ for i in range(0,5):
     #f2.set_data(xdata=hkl, ydata=sin2[0], eydata=sin2_er[0])
     
     
-    f.set(xlabel = 'Square-root sum hkl', ylabel = 'sin'r'$\theta$',
+    f.set(xlabel = r'$\sqrt{h^2+k^2+l^2}$', ylabel = 'sin'r'$\theta$',
            plot_guess = False)
     #f2.set(xlabel = 'Square-root sum hkl', ylabel = 'sin'r'$\theta$',
     #       plot_guess = False)
@@ -91,18 +91,18 @@ for i in range(0,5):
     coeff.append(a[0][0])
     coeff_er.append(a[1][0][0])
     
-lattice = (lam/(2*np.asarray(coeff)))
-lattice_er = (lam/2) * (np.asarray(coeff_er)*(lattice**2))
-
-
-#PLOT LATTICE VS CONCENTRATION
-con = [100, 75, 50, 25, 0]
-s.plot.xy.data(con, lattice, eydata = lattice_er,
-               linestyle='',
-               mec = 'b',
-               marker = 'o',
-               xlabel = 'Copper Concentration',
-               ylabel = 'Lattice Constant')
+#lattice = (lam/(2*np.asarray(coeff)))
+#lattice_er = (lam/2) * (np.asarray(coeff_er)*(lattice**2))
+#
+#
+##PLOT LATTICE VS CONCENTRATION
+#con = [100, 75, 50, 25, 0]
+#s.plot.xy.data(con, lattice, eydata = lattice_er,
+#               linestyle='',
+#               mec = 'b',
+#               marker = 'o',
+#               xlabel = 'Copper Concentration',
+#               ylabel = 'Lattice Constant')
     
 
 
