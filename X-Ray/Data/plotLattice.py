@@ -70,7 +70,7 @@ for i in range(0,5):
     f.set_functions('a*x+b', 'a, b')
     #f2.set_functions('c*x+m', 'c, m')
     
-    f.set(b = 0.009, a = 0.2)
+    f.set(b = 0.00009, a = 0.2)
     #f2.set(m = 0, c = 0.2)
     
     f.set_data(xdata=hkl, ydata=sin_mean[i], eydata=sin_mean_er[i])
@@ -92,7 +92,7 @@ for i in range(0,5):
     coeff_er.append(np.sqrt(a[1][0][0]))
     
 lattice = (lam/(2*np.asarray(coeff)))
-lattice_er = (lam/2) * (np.asarray(coeff_er)/np.asarray(coeff)**2)
+lattice_er = (lam/2) * (np.asarray(coeff_er)/(np.asarray(coeff)**2))
 
 
 #PLOT LATTICE VS CONCENTRATION
