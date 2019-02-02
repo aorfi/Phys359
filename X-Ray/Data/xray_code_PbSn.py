@@ -64,13 +64,13 @@ for num in range (1,2):
 
 
     # Load a *.txt data file
-    d = s.data.load(files_pbsn[2])
+    d = s.data.load(files_cuni[0])
     
     # Stick the data into the fitter object
     y_error = d[1]**(1/2)
     #numbers between which to slice the data file to "zoom" into the peaks 
-    n = 2000
-    m = 2100
+    n = 770
+    m = 850
     f.set_data(xdata=d[0][n:m], ydata=d[1][n:m], eydata=y_error[n:m])
               
     
@@ -85,14 +85,14 @@ for num in range (1,2):
     click_x1, click_y1 = f.ginput()[0]
     click_x2, click_y2 = f.ginput()[0]
     
-    f.set(xmin = click_x1 - 1, xmax = click_x1 + 1)
+    f.set(xmin = click_x1 - 2, xmax = click_x1 + 2)
     
     
     
     # make a better guess for a and x0, trim the data, and label the axes!
     f.set(A1=click_y1, x1=click_x1, 
           A2=click_y2, x2 =click_x2,
-          plot_guess = True, xlabel = '2'r'$\theta$',
+          plot_guess = False, xlabel = '2'r'$\theta$',
           ylabel = 'Intensity [Counts]')
     
     
