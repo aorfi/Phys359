@@ -37,8 +37,8 @@ def voigt(x, sigma, gamma):
     """
     return real(wofz((x + 1j*gamma)/sigma/ROOT2)) / sigma / (2*pi)**0.5            
 ## Initiate file names and stuffs 
-files_pbsn = ['Pb-100-24-01.UXD',  'Pb-75-Sn-25-14-01.UXD', 'Pb-50-Sn-50-14-01.UXD',
-         'Pb-25-Sn-75-14-01.UXD', 'Sn-100-10-01.UXD'] 
+files_pbsn = ['Pb-100-24-01.UXD',  'Pb-75-Sn-25-14-01.UXD', 'Pb-50-Sn-50-2-31-01.UXD',
+         'Pb-25-Sn-75-2-31-01.UXD', 'Sn-100-31-01.UXD'] 
 files_cuni = ['Cu-100-09-01.UXD', 'Cu-75-Ni-25-09-01.UXD', 'Cu-50-Ni-50-09-01.UXD', 
               'cu-25-ni-75-10-01.UXD', 'Ni-100-09-01.UXD'] 
 files_cuau = ['cuAu-sampleA-14-01.UXD', 'cu3Au-SampleB-14-01.UXD']
@@ -64,13 +64,13 @@ for num in range (1,2):
 
 
     # Load a *.txt data file
-    d = s.data.load(files_cuau[0])
+    d = s.data.load(files_pbsn[2])
     
     # Stick the data into the fitter object
     y_error = d[1]**(1/2)
     #numbers between which to slice the data file to "zoom" into the peaks 
-    n = 700
-    m = 850
+    n = 2000
+    m = 2100
     f.set_data(xdata=d[0][n:m], ydata=d[1][n:m], eydata=y_error[n:m])
               
     
@@ -85,7 +85,7 @@ for num in range (1,2):
     click_x1, click_y1 = f.ginput()[0]
     click_x2, click_y2 = f.ginput()[0]
     
-    f.set(xmin = click_x1 - 2, xmax = click_x1 + 2)
+    f.set(xmin = click_x1 - 1, xmax = click_x1 + 1)
     
     
     
