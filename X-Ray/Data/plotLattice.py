@@ -12,25 +12,35 @@ fileName = ['Cu100-Sheet1.csv', 'Cu75Ni25-Sheet1.csv', 'Cu50Ni50-Sheet1.csv',
             'Cu25Ni75-Sheet1.csv', 'Ni100-Sheet1.csv']
 
 lam = 0.153*10**(-9)
-hkl = np.sqrt(np.asarray([3, 4, 8, 11]))
+hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12]))
 # Copy paste data from notes
 
-w1theta2 = np.array([]);
-w2theta2 = np.array([]);
-w1theta2_er = np.array([]);
-w2theta2_er = np.array([]);
+#w1theta2 = np.zeros((5,1));
+#w2theta2 = np.zeros((5,1));
+#w1theta2_er = np.zeros((5,1));
+#w2theta2_er = np.zeros((5,1));
 
-for i in range(0,5):
+w1theta2 = [];
+w2theta2 = [];
+w1theta2_er = [];
+w2theta2_er = [];
+
+for i in range(0,4):
     a = s.data.load(fileName[i])
-    w1theta2 = np.append(w1theta2, a[0], axis = 0)
-    w1theta2_er = np.append(w1theta2_er, a[1], axis = 0)
-    w2theta2 = np.append(w2theta2, a[2], axis = 0)
-    w2theta2_er = np.append(w2theta2_er, a[3], axis = 0)
+#    b0 = np.asarray(a[0])
+#    b1 = np.asarray(a[1])
+#    b2 = np.asarray(a[2])
+#    b3 = np.asarray(a[3])
+    w1theta2.append(a[0])
+    w1theta2_er.append(a[1])
+    w2theta2.append(a[2])
+    w2theta2_er.append(a[3])
     
-w1theta = ((w1theta2/180) * np.pi) / 2;
-w1theta_er = ((w1theta2_er/180) * np.pi) / 2;
-w2theta = ((w2theta2/180) * np.pi) / 2
-w2theta_er = ((w2theta2_er/180) * np.pi) / 2;
+    
+w1theta = ((np.asarray(w1theta2)/180) * np.pi) / 2;
+w1theta_er = ((np.asarray(w1theta2_er)/180) * np.pi) / 2;
+w2theta = ((np.asarray(w2theta2)/180) * np.pi) / 2
+w2theta_er = ((np.asarray(w2theta2_er)/180) * np.pi) / 2;
     
 sin1 = np.sin(w1theta)
 sin1_er = np.multiply(w1theta_er, np.cos(w1theta))
@@ -47,16 +57,19 @@ f2 = s.data.fitter()
 # and floating parameters.
 
 f1.set_functions('a*x+b', 'a', 'b')
-f2.set_functions('c*x+m', 'c', 'm')
+f2.set_functions('c*x+m', 'c, m')
 
-
+f1.set(b = 0.009, a = 0.2)
+f2.set(m = 0, c = 0.2)
 
 f1.set_data(xdata=hkl, ydata=sin1[0], eydata=sin1_er[0])
-f2.set.data(xdata=hkl, ydata=sin2[0], eydata=sin2_er[0])
+f2.set_data(xdata=hkl, ydata=sin2[0], eydata=sin2_er[0])
 
 
-f1.set(xlabel = 'Square-root sum hkl', ylabel = 'sin'r'$\theta$')
-f2.set(xlabel = 'Square-root sum hkl', ylabel = 'sin'r'$\theta$')
+f1.set(xlabel = 'Square-root sum hkl', ylabel = 'sin'r'$\theta$',
+       plot_guess = False)
+f2.set(xlabel = 'Square-root sum hkl', ylabel = 'sin'r'$\theta$',
+       plot_guess = False)
 
 f1.fit()
 f2.fit()
