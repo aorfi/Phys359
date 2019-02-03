@@ -8,13 +8,27 @@ Created on Wed Jan 16 17:05:23 2019
 import numpy as np
 import spinmob as s
 
-fileName = ['Cu100-Sheet1.csv', 'Cu75Ni25-Sheet1.csv', 'Cu50Ni50-Sheet1.csv',
-            'Cu25Ni75-Sheet1.csv', 'Ni100-Sheet1.csv']
+isCu = False;
+
+if (isCu == True):
+    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12]))
+    final = 5;
+    fileName = ['Cu100-Sheet1.csv', 'Cu75Ni25-Sheet1.csv', 'Cu50Ni50-Sheet1.csv',
+                'Cu25Ni75-Sheet1.csv', 'Ni100-Sheet1.csv']
+else:
+#    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24, 27, 32]))
+#    hkl = np.sqrt(np.asarray([3, 8, 11, 16, 19, 24, 27, 32, 35, 40, 43]))
+    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16]))
+    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24]))
+    final = 1;
+    fileName = ['Cu3Au-B-Sheet1.csv']
+
+    
 
 lam1 = 0.15443*10**(-9)
 lam2 = 0.15405*10**(-9)
 lam = (1/2)*(lam1 + lam2)
-hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12]))
+
 coeff = [];
 coeff_er = [];
 # Copy paste data from notes
@@ -29,7 +43,7 @@ w2theta2 = [];
 w1theta2_er = [];
 w2theta2_er = [];
 
-for i in range(0,5):
+for i in range(0,final):
     a = s.data.load(fileName[i])
 #    b0 = np.asarray(a[0])
 #    b1 = np.asarray(a[1])
@@ -57,7 +71,7 @@ sin2_er = np.multiply(w2theta_er, np.cos(w2theta))
 sin_mean = np.sin(mean_theta);
 sin_mean_er = np.multiply(mean_theta_er, np.cos(sin_mean));
 
-for i in range(0,5):
+for i in range(0,1):
     # Create a fitter object
     f = s.data.fitter()
     #f2 = s.data.fitter()
@@ -70,7 +84,7 @@ for i in range(0,5):
     f.set_functions('a*x+b', 'a, b')
     #f2.set_functions('c*x+m', 'c, m')
     
-    f.set(b = 0.00009, a = 0.2)
+    f.set(b = 0.9, a = 0.1)
     #f2.set(m = 0, c = 0.2)
     
     f.set_data(xdata=hkl, ydata=sin_mean[i], eydata=sin_mean_er[i])
@@ -96,12 +110,12 @@ lattice_er = (lam/2) * (np.asarray(coeff_er)/(np.asarray(coeff)**2))
 
 
 #PLOT LATTICE VS CONCENTRATION
-con = [100, 75, 50, 25, 0]
-s.plot.xy.data(con, lattice, eydata = lattice_er,
-               linestyle = '',
-               marker = '.',
-               xlabel = 'Copper Concentration',
-               ylabel = 'Lattice Constant')
+#con = [100, 75, 50, 25, 0]
+#s.plot.xy.data(con, lattice, eydata = lattice_er,
+#               linestyle = '',
+#               marker = '.',
+#               xlabel = 'Copper Concentration',
+#               ylabel = 'Lattice Constant')
     
 
 
