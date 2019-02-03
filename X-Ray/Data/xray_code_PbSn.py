@@ -64,20 +64,20 @@ for num in range (1,2):
 
 
     # Load a *.txt data file
-    d = s.data.load(files_pbsn[4])
+    d = s.data.load(files_pbsn[2])
     
     # Stick the data into the fitter object
     y_error = d[1]**(0.5)
     #numbers between which to slice the data file to "zoom" into the peaks 
-    n = 470
-    m = 500
+    n = 0
+    m = 3500
     f.set_data(xdata=d[0][n:m], ydata=d[1][n:m], eydata=y_error[n:m])
               
     
     # Set some of the guess parameters
 
-    f.set(s1 = 0.02, a1 = 0.02, ymin = 0)
-    f.set(s2 = 0.02, a2 = 0.02, ymin = 0)
+    f.set(s1 = 0.02, a1 = 0.02, ymin = 5)
+    f.set(s2 = 0.02, a2 = 0.02, ymin = 5)
    
     
     # Fun trick: have the user click to make guess parameters!
