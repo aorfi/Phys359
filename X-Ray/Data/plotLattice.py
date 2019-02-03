@@ -16,15 +16,17 @@ if (isCu == True):
     fileName = ['Cu100-Sheet1.csv', 'Cu75Ni25-Sheet1.csv', 'Cu50Ni50-Sheet1.csv',
                 'Cu25Ni75-Sheet1.csv', 'Ni100-Sheet1.csv']
 else:
-    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24, 27]))
+#    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24, 27]))
 #    hkl = np.sqrt(np.asarray([3, 8, 11, 16, 19, 24, 27, 32, 35, 40, 43]))
 #    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16]))
 #    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24]))
 #    hkl = np.sqrt(np.asarray([4.92,   5.376 ,   9.846,
 #                              10.30, 15.22 ,  18.99,  20.113,  24.6,
 #                              25.04,  28.827,  34.856]))
-    final = 1;
-    fileName = ['Pb100-Sheet1.csv']
+    hkl = np.sqrt(np.asarray([3, 4, 5, 8, 11, 12]))
+    hkl = np.sqrt(np.asarray([1, 2, 3, 4, 5, 6, 8, 11, 12]))
+    final = 1; 
+    fileName = ['Cu3Au-B-Sheet1.csv']
 
     
 
