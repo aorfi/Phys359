@@ -8,7 +8,7 @@ Created on Wed Jan 16 17:05:23 2019
 import numpy as np
 import spinmob as s
 
-isCu = True;
+isCu = False;
 
 if (isCu == True):
     hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12]))
@@ -16,12 +16,15 @@ if (isCu == True):
     fileName = ['Cu100-Sheet1.csv', 'Cu75Ni25-Sheet1.csv', 'Cu50Ni50-Sheet1.csv',
                 'Cu25Ni75-Sheet1.csv', 'Ni100-Sheet1.csv']
 else:
-#    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24, 27, 32]))
-#    hkl = np.sqrt(np.asarray([3, 8, 11, 16, 19, 24, 27, 32, 35, 40, 43]))
-    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16]))
-    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24]))
+    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24, 27]))
+    hkl = np.sqrt(np.asarray([3, 8, 11, 16, 19, 24, 27, 32, 35, 40, 43]))
+#    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16]))
+#    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24]))
+    hkl = np.sqrt(np.asarray([4.92,   5.376 ,   9.846,
+                              10.30, 15.22 ,  18.99,  20.113,  24.6,
+                              25.04,  28.827,  34.856]))
     final = 1;
-    fileName = ['Cu3Au-B-Sheet1.csv']
+    fileName = ['Sn100-Sheet1.csv']
 
     
 
@@ -71,6 +74,8 @@ sin2_er = np.multiply(w2theta_er, np.cos(w2theta))
 sin_mean = np.sin(mean_theta);
 sin_mean_er = np.multiply(mean_theta_er, np.cos(sin_mean));
 
+ratio = sin_mean**2/(sin_mean[0]**2)
+
 for i in range(0,final):
     # Create a fitter object
     f = s.data.fitter()
@@ -105,29 +110,29 @@ for i in range(0,final):
     coeff.append(a[0][0])
     coeff_er.append(np.sqrt(a[1][0][0]))
     
-lattice = (lam/(2*np.asarray(coeff)))
-lattice_er = (lam/2) * (np.asarray(coeff_er)/(np.asarray(coeff)**2))
-
-
-#PLOT LATTICE VS CONCENTRATION
-con = [100, 75, 50, 25, 0]
-s.plot.xy.data(con, lattice, eydata = lattice_er,
-               linestyle = '',
-               marker = '.',
-               color = 'r',
-               xlabel = 'Copper Concentration %',
-               ylabel = 'Lattice Constant ' r'$\AA$')
-
-f1 = s.data.fitter()
-f1.set_functions('a*x+b', 'a, b')
-f1.set(b = 0.9, a = 0.1)
-f1.set_data(xdata=con, ydata=lattice, eydata=lattice_er) 
-f1.set(xlabel = 'Copper Concentration %',
-       ylabel = 'Lattice Constant ' r'$\AA$',
-       plot_guess = False)
-f1.fit()
-print(f1)
-   
+#lattice = (lam/(2*np.asarray(coeff)))
+#lattice_er = (lam/2) * (np.asarray(coeff_er)/(np.asarray(coeff)**2))
+#
+#
+##PLOT LATTICE VS CONCENTRATION
+#con = [100, 75, 50, 25, 0]
+#s.plot.xy.data(con, lattice, eydata = lattice_er,
+#               linestyle = '',
+#               marker = '.',
+#               color = 'r',
+#               xlabel = 'Copper Concentration %',
+#               ylabel = 'Lattice Constant ' r'$\AA$')
+#
+#f1 = s.data.fitter()
+#f1.set_functions('a*x+b', 'a, b')
+#f1.set(b = 0.9, a = 0.1)
+#f1.set_data(xdata=con, ydata=lattice, eydata=lattice_er) 
+#f1.set(xlabel = 'Copper Concentration %',
+#       ylabel = 'Lattice Constant ' r'$\AA$',
+#       plot_guess = False)
+#f1.fit()
+#print(f1)
+#   
 
 
 
