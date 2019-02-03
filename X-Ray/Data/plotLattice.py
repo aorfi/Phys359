@@ -16,9 +16,12 @@ if (isCu == True):
     fileName = ['Cu100-Sheet1.csv', 'Cu75Ni25-Sheet1.csv', 'Cu50Ni50-Sheet1.csv',
                 'Cu25Ni75-Sheet1.csv', 'Ni100-Sheet1.csv']
 else:
-    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24, 27]))
+#    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24, 27, 32]))
+#    hkl = np.sqrt(np.asarray([3, 8, 11, 16, 19, 24, 27, 32, 35, 40, 43]))
+    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16]))
+    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24]))
     final = 1;
-    fileName = ['Pb100-Sheet1.csv']
+    fileName = ['Cu3Au-B-Sheet1.csv']
 
     
 
@@ -81,7 +84,7 @@ for i in range(0,1):
     f.set_functions('a*x+b', 'a, b')
     #f2.set_functions('c*x+m', 'c, m')
     
-    f.set(b = 0.00009, a = 0.2)
+    f.set(b = 0.9, a = 0.1)
     #f2.set(m = 0, c = 0.2)
     
     f.set_data(xdata=hkl, ydata=sin_mean[i], eydata=sin_mean_er[i])
