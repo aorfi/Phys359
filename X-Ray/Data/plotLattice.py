@@ -115,7 +115,7 @@ s.plot.xy.data(con, lattice, eydata = lattice_er,
                linestyle = '',
                marker = '.',
                color = 'r',
-               xlabel = 'Copper Concentration',
+               xlabel = 'Copper Concentration %',
                ylabel = 'Lattice Constant ' r'$\AA$')
     
 
