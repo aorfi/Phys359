@@ -17,14 +17,14 @@ if (isCu == True):
                 'Cu25Ni75-Sheet1.csv', 'Ni100-Sheet1.csv']
 else:
     hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24, 27]))
-    hkl = np.sqrt(np.asarray([3, 8, 11, 16, 19, 24, 27, 32, 35, 40, 43]))
+#    hkl = np.sqrt(np.asarray([3, 8, 11, 16, 19, 24, 27, 32, 35, 40, 43]))
 #    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16]))
 #    hkl = np.sqrt(np.asarray([3, 4, 8, 11, 12, 16, 19, 20, 24]))
-    hkl = np.sqrt(np.asarray([4.92,   5.376 ,   9.846,
-                              10.30, 15.22 ,  18.99,  20.113,  24.6,
-                              25.04,  28.827,  34.856]))
+#    hkl = np.sqrt(np.asarray([4.92,   5.376 ,   9.846,
+#                              10.30, 15.22 ,  18.99,  20.113,  24.6,
+#                              25.04,  28.827,  34.856]))
     final = 1;
-    fileName = ['Sn100-Sheet1.csv']
+    fileName = ['Pb100-Sheet1.csv']
 
     
 
@@ -110,8 +110,8 @@ for i in range(0,final):
     coeff.append(a[0][0])
     coeff_er.append(np.sqrt(a[1][0][0]))
     
-#lattice = (lam/(2*np.asarray(coeff)))
-#lattice_er = (lam/2) * (np.asarray(coeff_er)/(np.asarray(coeff)**2))
+lattice = (lam/(2*np.asarray(coeff)))
+lattice_er = (lam/2) * (np.asarray(coeff_er)/(np.asarray(coeff)**2))
 #
 #
 ##PLOT LATTICE VS CONCENTRATION
