@@ -117,7 +117,17 @@ s.plot.xy.data(con, lattice, eydata = lattice_er,
                color = 'r',
                xlabel = 'Copper Concentration %',
                ylabel = 'Lattice Constant ' r'$\AA$')
-    
+
+f1 = s.data.fitter()
+f1.set_functions('a*x+b', 'a, b')
+f1.set(b = 0.9, a = 0.1)
+f1.set_data(xdata=con, ydata=lattice, eydata=lattice_er) 
+f1.set(xlabel = 'Copper Concentration %',
+       ylabel = 'Lattice Constant ' r'$\AA$',
+       plot_guess = False)
+f1.fit()
+print(f1)
+   
 
 
 
