@@ -24,9 +24,9 @@ else:
 #                              10.30, 15.22 ,  18.99,  20.113,  24.6,
 #                              25.04,  28.827,  34.856]))
     hkl = np.sqrt(np.asarray([3, 4, 5, 8, 11, 12]))
-    hkl = np.sqrt(np.asarray([1, 2, 3, 4, 5, 6, 8, 11, 12]))
+#    hkl = np.sqrt(np.asarray([1, 2, 3, 4, 5, 6, 8, 11, 12]))
     final = 1; 
-    fileName = ['Cu3Au-B-Sheet1.csv']
+    fileName = ['Cu3Au-A-Sheet1.csv']
 
     
 
