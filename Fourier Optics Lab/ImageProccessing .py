@@ -24,35 +24,57 @@ onLine = 1-im[linePosition]
 
 #get dot positions
 imgdots = io.imread("test.jpg")[2050:2150,1700:2800]
-imagedots = rgb2gray(imgdots)
-imdots = img_as_float(imagedots)
+imdots = rgb2gray(imgdots)
+imdotsT = np.ndarray.transpose(imdots)
+avDotLine = np.empty(imdots[0].size)
+
+for i in range(imdots[0].size):
+    avDotLine[i] = np.average(imdotsT[i])
+
+
 ydots = np.empty(imdots[0].size)
 linePosition = 50 #defines line guess from photo
 ydots.fill(linePosition) #defines line 
 xdots = np.arange(0,imdots[0].size,1)
 onDotLine = imdots[linePosition]
 
-fig, axs = plt.subplots(2, 2)
+#peakx = xdots[430:460]
+#peaky = avDotLine[430:460]
+#ytotal = np.sum(avDotLine[430:460])
+#xtotal = np.sum(xdots[430:460])
+#avarray = np.empty(xdots[430:460].size)
+#for i in range(xdots[430:460].size):
+#    avarray[i] = (peaky[i]/ytotal)*xdots[430+i]
+#average = np.sum(avarray)
+#xaverage = np.empty(xdots[430:460].size)
+#xaverage.fill(average)
 
+
+
+fig, axs = plt.subplots(2, 2)
 
 axs[0,0].imshow(im, cmap=plt.cm.gray)
 axs[0,0].plot(x,y)
 
-axs[1,0].plot(x,onLine, 'b')
+axs[1,0].plot(x,onLine)
+
+
 
 axs[0,1].imshow(imdots, cmap=plt.cm.gray)
 axs[0,1].plot(xdots,ydots)
 
 axs[1,1].plot(xdots,onDotLine, 'b')
+#axs[1,1].plot(xdots,avDotLine, 'r')
+
+#axs[1,1].plot(peakx,peaky, 'r')
+#axs[1,1].plot(xaverage,peaky, 'b')
+
 
 
 plt.show()
 
-for i in range(0,1100):
-    if onDotLine[i] < 0.15:
-        onDotLine[i] = 0
 
-plt.plot(xdots, onDotLine)
+
     
 
 #Average distance
