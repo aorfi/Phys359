@@ -15,7 +15,6 @@ from scipy import ndimage as ndi
 #First get scale of the image
 img = io.imread("test.jpg")[700:1400, 2000:4000]
 image = rgb2gray(img)
-#image = img_grey[1200:1500]
 im = img_as_float(image)
 y = np.empty(im[0].size)
 linePosition = 300 #defines line guess from photo
@@ -23,37 +22,112 @@ y.fill(linePosition) #defines line
 x = np.arange(0,im[0].size,1)
 onLine = 1-im[linePosition]
 
-plt.subplot(2,1,1)
-plt.imshow(im, cmap=plt.cm.gray)
-plt.plot(x,y)
+#get dot positions
+imgdots = io.imread("test.jpg")[2050:2150,1700:2800]
+imdots = rgb2gray(imgdots)
+imdotsT = np.ndarray.transpose(imdots)
+avDotLine = np.empty(imdots[0].size)
+
+for i in range(imdots[0].size):
+    avDotLine[i] = np.average(imdotsT[i])
 
 
-plt.subplot(2,1,2)
-plt.plot(x,onLine, 'b')
+ydots = np.empty(imdots[0].size)
+linePosition = 50 #defines line guess from photo
+ydots.fill(linePosition) #defines line 
+xdots = np.arange(0,imdots[0].size,1)
+onDotLine = imdots[linePosition]
+
+#peakx = xdots[430:460]
+#peaky = avDotLine[430:460]
+#ytotal = np.sum(avDotLine[430:460])
+#xtotal = np.sum(xdots[430:460])
+#avarray = np.empty(xdots[430:460].size)
+#for i in range(xdots[430:460].size):
+#    avarray[i] = (peaky[i]/ytotal)*xdots[430+i]
+#average = np.sum(avarray)
+#xaverage = np.empty(xdots[430:460].size)
+#xaverage.fill(average)
+
+
+
+fig, axs = plt.subplots(2, 2)
+
+axs[0,0].imshow(im, cmap=plt.cm.gray)
+axs[0,0].plot(x,y)
+
+axs[1,0].plot(x,onLine)
+
+
+
+axs[0,1].imshow(imdots, cmap=plt.cm.gray)
+axs[0,1].plot(xdots,ydots)
+
+axs[1,1].plot(xdots,onDotLine, 'b')
+#axs[1,1].plot(xdots,avDotLine, 'r')
+
+#axs[1,1].plot(peakx,peaky, 'r')
+#axs[1,1].plot(xaverage,peaky, 'b')
+
 
 
 plt.show()
 
 
+
+    
+
+#Average distance
+
+
+
+
+
 #peak fitting of the graph paper
-f = spinmob.data.fitter()
 
-def guassian(x,x1,w,c):
-    return np.exp((-(x-x1)**2)/(2*w**2))+ c
+#def voigt(x, sigma, gamma):
+#    return real(wofz((x + 1j*gamma)/sigma/ROOT2)) / sigma / (2*pi)**0.5 
+#
+#def guassian(x,x1,w):
+#    return np.exp(-((x-x1)**2)/(2*w**2))
+#
+#f1 = spinmob.data.fitter()
+##f1.set_functions('A1*V(x-x1,s1,a1)+A2*V(x-x2,s2,a2)+c', 
+##                'A1, x1, s1, a1,A2, x2, s2, a2, c=0', V= voigt)
+#f1.set_functions('A1*G(x,x1,w)+c', 
+#               'A1, x1, w,  c=0', G= guassian)
+#peakx = x[465:510]
+#peaky = onLine[465:510]
+#f1.set_data(peakx, peaky, 0.001)
+#f1.set(w=4)
+#click_x1, click_y1 = f1.ginput()[0]
+##click_x2, click_y2 = f1.ginput()[0]
+#f1.set(A1=click_y1, x1=click_x1, plot_guess = True, 
+#      xlabel='Relative Brightness',
+#      ylabel='Pixles')
+#f1.fit()
+#print(f1)
+
+#peak fitting of diffraction pattern
+#def guassian(x,x1,w):
+#    return np.exp(-((x-x1)**2)/(2*w**2))
+#f1 = spinmob.data.fitter()
+#f1.set_functions('A1*G(x,x1,w)+c', 
+#               'A1, x1, w,  c=0', G= guassian)
+#peakx = xdots[460:550]
+#peaky = onDotLine[460:550]
+#f1.set_data(peakx, peaky, 0.001)
+#f1.set(w=6)
+#click_x1, click_y1 = f1.ginput()[0]
+##click_x2, click_y2 = f1.ginput()[0]
+#f1.set(A1=click_y1, x1=click_x1, plot_guess = True, 
+#      xlabel='Relative Brightness',
+#      ylabel='Pixles')
+#f1.fit()
+#print(f1)
 
 
-f.set_functions('G(x,x1,w,c)', 
-                'a, x1, w, c', G=guassian)
-peakx = x[20:100]
-peaky = onLine[20:100]
-f.set_data(peakx, peaky, 0)
-f.set(w=3, c=0.9)
-click_x1, click_y1 = f.ginput()[0]
-f.set(a=(0.04), x1=click_x1, plot_guess = True, 
-      xlabel='Pants (mV)',
-      ylabel='Shoes (nm)')
-f.fit()
-print(f)
+
 
 
 
