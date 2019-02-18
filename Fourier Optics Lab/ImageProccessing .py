@@ -5,6 +5,7 @@ Created on Mon Feb 11 14:58:35 2019
 @author: aorfi
 """
 import numpy as np
+import spinmob
 import matplotlib.pyplot as plt
 from skimage.color import rgb2gray
 from skimage.feature import peak_local_max
@@ -32,6 +33,30 @@ plt.plot(x,onLine, 'b')
 
 
 plt.show()
+
+
+#peak fitting of the graph paper
+f = spinmob.data.fitter()
+
+def guassian(x,x1,w,c):
+    return np.exp((-(x-x1)**2)/(2*w**2))+ c
+
+
+f.set_functions('G(x,x1,w,c)', 
+                'a, x1, w, c', G=guassian)
+peakx = x[20:100]
+peaky = onLine[20:100]
+f.set_data(peakx, peaky, 0)
+f.set(w=3, c=0.9)
+click_x1, click_y1 = f.ginput()[0]
+f.set(a=(0.04), x1=click_x1, plot_guess = True, 
+      xlabel='Pants (mV)',
+      ylabel='Shoes (nm)')
+f.fit()
+print(f)
+
+
+
 
 #
 #image_max = ndi.maximum_filter(im, size=150, mode='constant') #finds local max
