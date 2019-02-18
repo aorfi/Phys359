@@ -50,23 +50,47 @@ plt.show()
 
 
 #peak fitting of the graph paper
+
+def voigt(x, sigma, gamma):
+    return real(wofz((x + 1j*gamma)/sigma/ROOT2)) / sigma / (2*pi)**0.5 
+
 def guassian(x,x1,w):
     return np.exp(-((x-x1)**2)/(2*w**2))
 
 f1 = spinmob.data.fitter()
-f1.set_functions('a*G(x,x1,w)+c', 
-                'a, x1, w, c', G=guassian)
+#f1.set_functions('A1*V(x-x1,s1,a1)+A2*V(x-x2,s2,a2)+c', 
+#                'A1, x1, s1, a1,A2, x2, s2, a2, c=0', V= voigt)
+f1.set_functions('A1*G(x,x1,w)+c', 
+               'A1, x1, w,  c=0', G= guassian)
 peakx = x[465:510]
 peaky = onLine[465:510]
-f1.set_data(peakx, peaky, 0.01)
-f1.set(c=0.89, w=5)
+f1.set_data(peakx, peaky, 0.001)
+f1.set(w=4)
 click_x1, click_y1 = f1.ginput()[0]
-f1.set(a=0.05, x1=click_x1, plot_guess = True, 
+#click_x2, click_y2 = f1.ginput()[0]
+f1.set(A1=click_y1, x1=click_x1, plot_guess = True, 
       xlabel='Relative Brightness',
       ylabel='Pixles')
 f1.fit()
 print(f1)
 
+#peak fitting of diffraction pattern
+#def guassian(x,x1,w):
+#    return np.exp(-((x-x1)**2)/(2*w**2))
+#f1 = spinmob.data.fitter()
+#f1.set_functions('A1*G(x,x1,w)+c', 
+#               'A1, x1, w,  c=0', G= guassian)
+#peakx = xdots[460:550]
+#peaky = onDotLine[460:550]
+#f1.set_data(peakx, peaky, 0.001)
+#f1.set(w=6)
+#click_x1, click_y1 = f1.ginput()[0]
+##click_x2, click_y2 = f1.ginput()[0]
+#f1.set(A1=click_y1, x1=click_x1, plot_guess = True, 
+#      xlabel='Relative Brightness',
+#      ylabel='Pixles')
+#f1.fit()
+#print(f1)
 
 
 
