@@ -5,7 +5,7 @@ Created on Mon Feb 11 14:58:35 2019
 @author: aorfi
 """
 import numpy as np
-import spinmob
+import spinmob as s
 import matplotlib.pyplot as plt
 from skimage.color import rgb2gray
 from skimage.feature import peak_local_max
@@ -47,7 +47,28 @@ ymax[8] = np.amax(avDot[4500:5000])
 xmax[8] = 4500 + np.argmax(avDot[4500:5000])
 
 
+#Now, use these local max values to fit a line 
+def line(m,b,x): 
+    return m*x+b
+#create fitter object : 
+f = s.data.fitter()
+f.set_functions('L(m,b,x)', 'm,b', L = line)
+#set the data: 
+y_err = np.empty(9) 
+err = 7
+for i in range (0,9): 
+    y_err[i] = err
 
+#define the array for peak number: 
+peak_num = np.empty(9)
+for i in range (0,9): 
+    peak_num[i]=i
+    
+f.set_data(xdata=peak_num, ydata=xmax, eydata=y_err)
+#set guess params: 
+f.set(m=1, b=0)   
+f.fit()
+print(f)
 
 
 
@@ -65,8 +86,8 @@ axs[1,0].plot(xmax,ymax, 'bo')
 
 
 
-axs[0,1].plot(peakx,peaky, 'r')
-
+axs[0,1].plot(xdots,avDot, 'r')
+axs[0,1].axes.set_xlim([100,5000])
 
 
 
