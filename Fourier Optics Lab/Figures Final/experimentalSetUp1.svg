@@ -8,7 +8,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="297mm"
@@ -33,21 +32,6 @@
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
          d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
          id="path4015" />
-    </marker>
-    <marker
-       inkscape:stockid="Arrow1Mend"
-       orient="auto"
-       refY="0.0"
-       refX="0.0"
-       id="Arrow1Mend"
-       style="overflow:visible;"
-       inkscape:isstock="true"
-       inkscape:collect="always">
-      <path
-         id="path844"
-         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
-         transform="scale(0.4) rotate(180) translate(10,0)" />
     </marker>
     <marker
        inkscape:stockid="Arrow1Mstart"
@@ -244,16 +228,6 @@
          style="fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:0.98623855;fill:#ff0000;fill-opacity:0.98623855"
          transform="scale(0.2) rotate(180) translate(6,0)" />
     </marker>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient2900"
-       id="linearGradient2912"
-       x1="86.172417"
-       y1="105.82759"
-       x2="89.793098"
-       y2="105.82759"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-3.2586207)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -281,7 +255,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -303,20 +277,13 @@
        id="path833"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc" />
-    <ellipse
-       style="opacity:1;fill:url(#linearGradient2912);fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path817"
-       cx="84.724136"
-       cy="105.82759"
-       rx="1.8103447"
-       ry="10.137931" />
     <rect
        style="opacity:1;fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect819"
        width="13.758621"
        height="14.12069"
-       x="93.775856"
-       y="98.94828" />
+       x="92.632179"
+       y="98.826385" />
     <ellipse
        style="opacity:1;fill:#49baff;fill-opacity:0.50980392;stroke:#060000;stroke-width:0.40000001;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.98623855"
        id="path823"
@@ -361,17 +328,6 @@
          x="28.241381"
          y="109.0862"
          style="stroke-width:0.26458332">Laser</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'.Times LT MM';-inkscape-font-specification:'.Times LT MM, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="18.827589"
-       y="149.63794"
-       id="text2920"><tspan
-         sodipodi:role="line"
-         id="tspan2918"
-         x="18.827589"
-         y="149.63794"
-         style="stroke-width:0.26458332">Microscope Lens</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'.Times LT MM';-inkscape-font-specification:'.Times LT MM, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -431,27 +387,18 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'.Times LT MM';-inkscape-font-specification:'.Times LT MM, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="102.30586"
-       y="275.9534"
-       id="text2944"><tspan
+       x="100.3614"
+       y="276.89966"
+       id="text2944"
+       transform="rotate(-0.81008513)"><tspan
          sodipodi:role="line"
-         x="102.30586"
-         y="275.9534"
+         x="100.3614"
+         y="276.89966"
          style="stroke-width:0.26458332"
-         id="tspan3068">Screen</tspan><tspan
-         sodipodi:role="line"
-         x="102.30586"
-         y="288.30063"
-         style="stroke-width:0.26458332"
-         id="tspan2946" /></text>
+         id="tspan909">Camera</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.565;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
-       d="m 76.758619,140.94828 6.879312,-22.44827"
-       id="path3091"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.465;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#marker4017)"
-       d="m 101.01724,129.36207 -0.45258,-14.93534"
+       style="fill:none;stroke:#000000;stroke-width:0.4632363;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4017)"
+       d="M 102.02959,129.24445 99.668629,114.67711"
        id="path3093"
        inkscape:connector-curvature="0" />
     <path
@@ -555,5 +502,21 @@
            id="tspan4149-5"
            sodipodi:role="line">2</tspan></text>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'.Times LT MM';-inkscape-font-specification:'.Times LT MM, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="122.74138"
+       y="278.17239"
+       id="text903"><tspan
+         sodipodi:role="line"
+         id="tspan901"
+         x="122.74138"
+         y="287.35538"
+         style="stroke-width:0.26458332"></tspan><tspan
+         sodipodi:role="line"
+         x="122.74138"
+         y="299.70258"
+         style="stroke-width:0.26458332"
+         id="tspan905" /></text>
   </g>
 </svg>
