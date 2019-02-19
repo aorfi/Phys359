@@ -20,25 +20,37 @@ imgdots = io.imread("test.jpg")[700:1500][50:5500]
 imdots = rgb2gray(imgdots)
 imdotsT = np.ndarray.transpose(imdots)
 avDot = np.empty(imdots[0].size)
+xdots = np.arange(0,imdots[0].size,1)
 
 for i in range(imdots[0].size):
     avDot[i] = np.average(imdotsT[i])
-    
-max1 = np.amax(avDot[0:600])
+
+xmax = np.empty(9) 
+ymax = np.empty(9) 
+ymax[0] = np.amax(avDot[200:600])
+xmax[0] = 200 + np.argmax(avDot[200:600])
+ymax[1] = np.amax(avDot[600:1200])
+xmax[1] = 600 + np.argmax(avDot[600:1200])
+ymax[2] = np.amax(avDot[1300:1800])
+xmax[2] = 1300 + np.argmax(avDot[1300:1800])
+ymax[3] = np.amax(avDot[1800:2300])
+xmax[3] = 1800 + np.argmax(avDot[1800:2300])
+ymax[4] = np.amax(avDot[2300:3000])
+xmax[4] = 2300 + np.argmax(avDot[2300:3000])
+ymax[5] = np.amax(avDot[3000:3500])
+xmax[5] = 3000 + np.argmax(avDot[3000:3500])
+ymax[6] = np.amax(avDot[3500:4000])
+xmax[6] = 3500 + np.argmax(avDot[3500:4000])
+ymax[7] = np.amax(avDot[4000:4500])
+xmax[7] = 4000 + np.argmax(avDot[4000:4500])
+ymax[8] = np.amax(avDot[4500:5000])
+xmax[8] = 4500 + np.argmax(avDot[4500:5000])
 
 
 
-xdots = np.arange(0,imdots[0].size,1)
-peakx = xdots[1900:2200]
-peaky = avDot[1900:2200]
-ytotal = np.sum(avDot[1900:2200])
-xtotal = peakx.size
-avarray = np.empty(peakx.size)
-for i in range(peakx.size):
-    avarray[i] = (peaky[i]/ytotal)*xdots[1900+i]
-average = np.sum(avarray)
-xaverage = np.empty(peakx.size)
-xaverage.fill(average)
+
+
+
 
 
 
@@ -48,6 +60,9 @@ axs[0,0].imshow(imdots, cmap=plt.cm.gray)
 
 
 axs[1,0].plot(xdots,avDot, 'r')
+axs[1,0].axes.set_xlim([100,5000])
+axs[1,0].plot(xmax,ymax, 'bo')
+
 
 
 axs[0,1].plot(peakx,peaky, 'r')
