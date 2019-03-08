@@ -16,7 +16,7 @@ from skimage import data, img_as_float, io, util
 from scipy import ndimage as ndi
 
 #get dot positions
-imgdots = io.imread("IMG_0750.jpg")[1500:3000,1750:4250]
+imgdots = io.imread("IMG_0700.jpg")
 imdots = rgb2gray(imgdots)
 imdotsT = np.ndarray.transpose(imdots)
 avDot = np.empty(imdots[0].size)
@@ -42,8 +42,7 @@ fig, axs = plt.subplots(2, 2)
 axs[0,0].imshow(imdots, cmap=plt.cm.gray)
 
 axs[1,1].plot(xdots,avDot, 'r')
-axs[1,1].axes.set_xlim([100,5000])
-
+#axs[1,1].axes.set_xlim([100,5000])
 
 
 plt.show()
