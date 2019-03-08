@@ -32,8 +32,20 @@ imgdots1 = io.imread("IMG_0700.jpg")
 imdots1 = rgb2gray(imgdots1)
 imdotsT1 = np.ndarray.transpose(imdots1)
 avDot1 = np.empty(imdots1[0].size)
-xdots1 = np.arange(0,imdots1[0].size,1)
-xdotsm1 = xdots1*(0.00000429) #go to measure of distance not pixel count
+
+for i in range(imdots1[0].size):
+    avDot1[i] = np.average(imdotsT1[i])
+
+
+#we need to translate the data so that the maximum intensity of the image lies
+#on y axis: 
+max_intensity = np.max(avDot1)
+pos = avDot1.tolist().index(max_intensity)#gives an index
+total = avDot1.size #total number of points 
+beg = -1*pos
+end = total - pos
+xdots1 = np.arange(beg,end,1)
+xdotsm1 = xdots1*(0.00000429) #go to measure of distance not pixel count\
 
 #for this grating the width of a slit is: 
 width = 0.025*(1/np.power(10,3)) #in m 
