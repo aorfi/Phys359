@@ -18,10 +18,15 @@ from scipy import ndimage as ndi
 focal = 0.3
 wavelength = 0.0000006328
 
-def SingleSlitInt(x,w): 
-    nu = x/(focal*wavelength)
-    temp = nu*w
-    return np.power(w,2)*np.sinc(temp)*np.sinc(temp)
+#def SingleSlitInt(x,w): 
+#    nu = x/(focal*wavelength)
+#    temp = nu*w
+#    return np.power(w,2)*np.sinc(temp)*np.sinc(temp)
+
+def SingleSlitInt(x,w,I):
+    const = np.pi*w/(focal*wavelength)
+    var = const*x
+    return I*(np.power(np.sin(var),2)/np.power(var,2))
 
 #in diffraction fitting : xdotsm = xdots*(0.00000429)
 
@@ -49,9 +54,9 @@ xdotsm1 = xdots1*(0.00000429) #go to measure of distance not pixel count\
 
 #for this grating the width of a slit is: 
 width = 0.025*(1/np.power(10,3)) #in m 
-y_singleSlit = SingleSlitInt(xdotsm1,width)
+y_singleSlit = SingleSlitInt(xdotsm1,width,(max_intensity-np.min(avDot1)))
 plt.plot(xdotsm1,y_singleSlit)
-plt.plot(xdotsm1,avDot1)
+plt.plot(xdotsm1,avDot1-np.min(avDot1))
 plt.show()
 
 
