@@ -136,27 +136,24 @@ photo_num = np.asarray([1,2,3,4,5,6,7,8,9,10])
 
 
 #Now, use these max values to fit a constant: 
-    
-# Create a fitter object
-f = s.data.fitter()
-## Define the fit function (in this case, a constant) and fit parameters.
-f.set_functions(f='a', p='a')
-#
-## Stick the data into the fitter object, and make an initial guess at the error bar
-f.set_data(xdata=photo_num, ydata=tot_max, eydata=0.003)
-#
-## Fit!
-f.fit()
-#
-## Show the results (see spinmob wiki for more details!)
-print(f)
+#    
+## Create a fitter object
+#f = s.data.fitter()
+### Define the fit function (in this case, a constant) and fit parameters.
+#f.set_functions(f='a', p='a')
+##
+### Stick the data into the fitter object, and make an initial guess at the error bar
+#f.set_data(xdata=photo_num, ydata=tot_max, eydata=0.003)
+##
+### Fit!
+#f.fit()
+##
+### Show the results (see spinmob wiki for more details!)
+#print(f)
 
 
 ##Plot the different intensity vs pixel 
-#fig, axs = plt.subplots(2, 2)
-#
-#axs[0,0].plot(xdots1,avDot1, 'r')
-#axs[0,0].axes.set_xlim([100,5000])
+plt.plot(xdots1,avDot1, 'r')
 #
 #axs[0,1].plot(xdots2,avDot2, 'r')
 #axs[0,1].axes.set_xlim([100,5000])
@@ -167,4 +164,4 @@ print(f)
 #axs[1,1].plot(xdots4,avDot4, 'r')
 #axs[1,1].axes.set_xlim([100,5000])
 
-#plt.show()
+plt.show()
