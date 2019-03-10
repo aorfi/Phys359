@@ -17,6 +17,7 @@ from scipy import ndimage as ndi
 #define a new function: the FT^2 of a single slit aperture function 
 focal = 0.3
 wavelength = 0.0000006328
+dark = 0.0000375
 
 #def SingleSlitInt(x,w): 
 #    nu = x/(focal*wavelength)
@@ -28,12 +29,20 @@ def SingleSlitInt(x,w,I):
     var = const*x
     return I*(np.power(np.sin(var),2)/np.power(var,2))
 
+def MultiSlit(x,w,I,N):
+    const1 = np.pi*w/(focal*wavelength)
+    const2 = np.pi*dark/(focal*wavelength)
+    var1 = const1*x
+    var2 = const2*x
+    return I*np.power(np.sin(var1)/var1,2)*np.power(np.sin(N*var1)/(N*np.sin(var1)),2)
+
+
 #in diffraction fitting : xdotsm = xdots*(0.00000429)
 
             #FOR : EQ1408
 
 #get intensity data from the image; 
-imgdots1 = io.imread("IMG_0700.jpg")
+imgdots1 = io.imread("IMG_0711.jpg")
 imdots1 = rgb2gray(imgdots1)
 imdotsT1 = np.ndarray.transpose(imdots1)
 avDot1 = np.empty(imdots1[0].size)
@@ -53,10 +62,13 @@ xdots1 = np.arange(beg,end,1)
 xdotsm1 = xdots1*(0.00000429) #go to measure of distance not pixel count\
 
 #for this grating the width of a slit is: 
-width = 0.025*(1/np.power(10,3)) #in m 
+width = 0.0625*(1/np.power(10,3)) #in m 
+N = 15
 y_singleSlit = SingleSlitInt(xdotsm1,width,(max_intensity-np.min(avDot1)))
-plt.plot(xdotsm1,y_singleSlit)
+y_multiSlit = MultiSlit(xdotsm1,width,(max_intensity-np.min(avDot1)), N)
+#plt.plot(xdotsm1,y_singleSlit)
 plt.plot(xdotsm1,(avDot1-np.min(avDot1)))
+plt.plot(xdotsm1,y_multiSlit)
 plt.show()
 
 
