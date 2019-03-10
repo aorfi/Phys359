@@ -33,7 +33,7 @@ def SingleSlitInt(x,w,I):
             #FOR : EQ1408
 
 #get intensity data from the image; 
-imgdots1 = io.imread("IMG_0700.jpg")
+imgdots1 = io.imread("IMG_0700_tilted.jpg")
 imdots1 = rgb2gray(imgdots1)
 imdotsT1 = np.ndarray.transpose(imdots1)
 avDot1 = np.empty(imdots1[0].size)
@@ -57,7 +57,8 @@ width = 0.025*(1/np.power(10,3)) #in m
 y_singleSlit = SingleSlitInt(xdotsm1,width,(max_intensity-np.min(avDot1)))
 plt.plot(xdotsm1,y_singleSlit)
 plt.plot(xdotsm1,avDot1-np.min(avDot1))
+
+#ploting a line at x = 0 
+
 plt.show()
-
-
 
