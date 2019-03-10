@@ -42,7 +42,7 @@ def SingleSlitInt(x,w,I):
             #FOR : EQ1408
 
 #get intensity data from the image; 
-imgdots1 = io.imread("IMG_0700.jpg")
+imgdots1 = io.imread("IMG_0718.jpg")
 imdots1 = rgb2gray(imgdots1)
 imdotsT1 = np.ndarray.transpose(imdots1)
 avDot1 = np.empty(imdots1[0].size)
@@ -64,10 +64,11 @@ xdotsm1 = xdots1*(0.00000429) #go to measure of distance not pixel count\
 
 
 #for this grating the width of a slit is: 
-width = 0.025*(1/np.power(10,2)) #in m 
+width = 0.1*(1/np.power(10,2)) #in m 
 N = 16
 y_singleSlit = SingleSlitInt(xdotsm1,width,(max_intensity-np.min(avDot1)))
 #y_multiSlit = MultiSlit(xdotsm1,width,(max_intensity-np.min(avDot1)), N)
+<<<<<<< HEAD
 imdata = (avDot1-np.min(avDot1))
 
 xmax = np.empty(2) 
@@ -77,6 +78,8 @@ xmax[0] = np.argmin(imdata[1800:1900]) - 2015+1800
 ymax[1] = np.amin(imdata[2000:2200])
 xmax[1] = np.argmin(imdata[2000:2200]) - 2015+2000
 
+=======
+>>>>>>> da963835ff93d240585ad613d923761ed2e6e8e3
 plt.plot(xdotsm1,y_singleSlit)
 plt.plot(xdotsm1,imdata)
 plt.plot(xmax*(0.00000429),ymax,'ro')
