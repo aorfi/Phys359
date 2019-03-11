@@ -25,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -43,7 +43,7 @@
      id="namedview467"
      showgrid="false"
      inkscape:zoom="1.2636612"
-     inkscape:cx="331.36864"
+     inkscape:cx="186.55134"
      inkscape:cy="204.96"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -2977,5 +2977,26 @@
        id="tspan3222"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'.Times LT MM';-inkscape-font-specification:'.Times LT MM, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:round"
        x="176.27353"
-       y="292.60214">distance (m)</tspan></text>
+       y="292.60214">Distance (m)</tspan></text>
+  <rect
+     style="opacity:1;fill:#fffffe;fill-opacity:1;stroke:none;stroke-width:1.31811011;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.0745098"
+     id="rect610"
+     width="25.501472"
+     height="67.069229"
+     x="16.618378"
+     y="116.32865" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'.Times LT MM';-inkscape-font-specification:'.Times LT MM, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:round"
+     x="-176.14784"
+     y="33.428917"
+     id="text1431"
+     transform="rotate(-90)"
+     inkscape:transform-center-x="35.610812"
+     inkscape:transform-center-y="46.887569"><tspan
+       sodipodi:role="line"
+       id="tspan1429"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'.Times LT MM';-inkscape-font-specification:'.Times LT MM, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:round"
+       x="-176.14784"
+       y="33.428917">Intensity</tspan></text>
 </svg>
