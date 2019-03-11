@@ -89,13 +89,12 @@ xmax[1] = np.argmin(imdata[c:d]) - pos+c
 #plt.plot(xmax*(0.00000429),ymax,'ro')
 
 name = ['Single Slit', 'EQ 1418']
-s.plot.xy.data([xdotsm1,xdotsm1],\
-                [y_singleSlit,imdata],\
-                xlabel = '2'r'$\theta$',\
-                ylabel = 'Intensity [Counts]',\
-                label = name,
+s.plot.xy.data([xdotsm1],\
+                [y_singleSlit,],\
+                xlabel = 'Distance',\
+                ylabel = 'Intensity',\
                 legend = 'right')
-plt.plot(xmax*(0.00000429),ymax,'ro', markersize = 4)
+#plt.plot(xmax*(0.00000429),ymax,'ro', markersize = 4)
 #plt.plot(xdotsm1,y_multiSlit)
 plt.show()
 
