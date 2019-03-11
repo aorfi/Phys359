@@ -61,13 +61,29 @@ end = total - pos
 xdots1 = np.arange(beg,end,1)
 xdotsm1 = xdots1*(0.00000429) #go to measure of distance not pixel count\
 
+
+
 #for this grating the width of a slit is: 
-width = 0.1*(1/np.power(10,2)) #in m 
+width = 0.025*(1/np.power(10,2)) #in m 
 N = 16
 y_singleSlit = SingleSlitInt(xdotsm1,width,(max_intensity-np.min(avDot1)))
 #y_multiSlit = MultiSlit(xdotsm1,width,(max_intensity-np.min(avDot1)), N)
+imdata = (avDot1-np.min(avDot1))
+
+xmax = np.empty(2) 
+ymax = np.empty(2) 
+a = 2300
+b = 2400
+c = 2400
+d = 2500
+ymax[0] = np.amin(imdata[a:b])
+xmax[0] = np.argmin(imdata[a:b]) - pos+a 
+ymax[1] = np.amin(imdata[c:d])
+xmax[1] = np.argmin(imdata[c:d]) - pos+c
+
 plt.plot(xdotsm1,y_singleSlit)
-plt.plot(xdotsm1,(avDot1-np.min(avDot1)))
+plt.plot(xdotsm1,imdata)
+plt.plot(xmax*(0.00000429),ymax,'ro')
 #plt.plot(xdotsm1,y_multiSlit)
 plt.show()
 
