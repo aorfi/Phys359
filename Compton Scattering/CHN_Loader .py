@@ -91,6 +91,7 @@ def plot_chn_files(xscript='d[0]', yscript='d[1]', eyscript='sqrt(d[1])', marker
                          xlabel=xlabel, ylabel=ylabel, 
                          title=title, **kwargs)
     
-d  = load_chn()
+    
+plot_chn_files()
 
-plot_chm_files()
+
