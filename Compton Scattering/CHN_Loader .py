@@ -3,6 +3,8 @@ import time    as _t
 import struct  as _struct
 import numpy   as _n
 import os      as _os
+import numpy
+
 
 
 
@@ -82,6 +84,7 @@ def plot_chn_files(xscript='d[0]', yscript='d[1]', eyscript='sqrt(d[1])', marker
     
     # Load the files
     ds = load_multiple_chn(paths)
+    #numpy.savetxt("test.csv", ds, delimiter=",")
     
     # Get the title
     title = _os.path.split(ds[0].path)[0]
@@ -90,8 +93,9 @@ def plot_chn_files(xscript='d[0]', yscript='d[1]', eyscript='sqrt(d[1])', marker
                          marker=marker, linestyle=linestyle, 
                          xlabel=xlabel, ylabel=ylabel, 
                          title=title, **kwargs)
+    return ds
     
     
-plot_chn_files()
+d = load_chn()
 
 
