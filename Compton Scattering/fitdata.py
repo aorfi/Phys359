@@ -37,12 +37,12 @@ def Gaussian(x, sigma):
 
 #TA suggestion: try double peak fitting for Na and Ba: 
 
-file = ['Ba133_cali2.dat']
+file = ['']
 
 f = s.data.fitter()
 #f.set_functions('A*G(x-x0, sigma)', 'x0, sigma, A', G=Gaussian) #FOR GAUSS
 f.set_functions('A1*G(x-x1,s1) + A2*G(x-x2, s2)', 'A1, x1, s1, A2, x2, s2', G= Gaussian) #for double peak 
-d = np.asarray(s.data.load(file[0]))[130:235]
+d = np.asarray(s.data.load(file[0]))
 
 
 y_error = d[1]**(1/2)
