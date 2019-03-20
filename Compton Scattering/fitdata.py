@@ -35,24 +35,27 @@ def Gaussian(x, sigma):
     var = ((x)**2)/(sigma**2)
     return exp(-var)
 
+#TA suggestion: try double peak fitting for Na and Ba: 
+
 file = ['Ba133_cali2.dat']
 
 f = s.data.fitter()
 #f.set_functions('A*G(x-x0, sigma)', 'x0, sigma, A', G=Gaussian) #FOR GAUSS
-f.set_functions('A*V(x-x0,s,a)', 'A, x0, s, a', V= voigt)
-d = np.asarray(s.data.load(file[0]))
+f.set_functions('A1*G(x-x1,s1) + A2*G(x-x2, s2)', 'A1, x1, s1, A2, x2, s2', G= Gaussian) #for double peak 
+d = np.asarray(s.data.load(file[0]))[130:235]
 
 
 y_error = d[1]**(1/2)
 f.set_data(xdata = d[0], ydata = d[1], eydata = y_error)
 #f.set(sigma = 6, ymin = 0) #FOR GAUSS
-f.set(s = 6, a = 0.2)
+f.set(s1 = 6, s2=6)
 
 ### CLICK
-x_click, y_click = f.ginput()[0]
-f.set(xmin = x_click-20, xmax = x_click+20)
-f.set(A = y_click, x0 = x_click, plot_guess = False, xlabel = 'TBD',
-      ylabel = 'TBD')
+click_x1, click_y1 = f.ginput()[0]
+click_x2, click_y2 = f.ginput()[0]
+f.set(xmin = click_x1-20, xmax = click_x2+20)
+f.set(A1 = click_y1, x1 = click_x1, A2 = click_y2, x2 = click_x2, plot_guess = False, xlabel = 'channel',
+      ylabel = 'count')
 f.fit()
 print(f)
 
