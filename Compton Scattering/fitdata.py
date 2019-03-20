@@ -24,11 +24,11 @@ d = np.asarray(s.data.load(file[0]))
 
 y_error = d[1]**(1/2)
 f.set_data(xdata = d[0], ydata = d[1], eydata = y_error)
-f.set(sigma = 10)
+f.set(sigma = 6)
 
 ### CLICK
 x_click, y_click = f.ginput()[0]
-f.set(xmin = x_click-16, xmax = x_click+16)
+f.set(xmin = x_click-17, xmax = x_click+12)
 f.set(A = y_click, x0 = x_click, plot_guess = False, xlabel = 'TBD',
       ylabel = 'TBD')
 f.fit()
