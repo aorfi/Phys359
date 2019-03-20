@@ -97,5 +97,5 @@ def plot_chn_files(xscript='d[0]', yscript='d[1]', eyscript='sqrt(d[1])', marker
     
     
 d = load_chn()
-
+d.save_file()
 
