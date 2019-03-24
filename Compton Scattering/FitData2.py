@@ -34,10 +34,11 @@ def Step(x, sigma):
 
 #gaussian and step should have the same x_0 and the same sigma 
 
-file = ['Na22_cali2.dat']
+file = ['Cs137_cali2.dat']
 d = np.asarray(s.data.load(file[0]))
-d_x = d[0][250:310]
-d_y = d[1][250:310]
+d_x = d[0][317:417]
+d_y = d[1][317:417]
+
 
 
 f = s.data.fitter()
@@ -66,3 +67,18 @@ print(f)
 ### FOR Cs137
 #d_x = d[0][317:417]
 #d_y = d[1][317:417]
+
+
+### FOR Na22
+#d_x = d[0][250:310]
+#d_y = d[1][250:310]
+
+
+### FOR Ba133 Rigth most
+#d_x = d[0][179:209]
+#d_y = d[1][179:209]
+
+
+### FOR Ba133 Left most
+#d_x = d[0][32:47]
+#d_y = d[1][32:47]

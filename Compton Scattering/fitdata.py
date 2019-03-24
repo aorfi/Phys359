@@ -37,7 +37,7 @@ def Gaussian(x, sigma):
 
 #TA suggestion: try double peak fitting for Na and Ba: 
 
-file = ['Na22_cali2.dat']
+file = ['Ba133_cali3.dat']
 
 f = s.data.fitter()
 #f.set_functions('A*G(x-x0, sigma)', 'x0, sigma, A', G=Gaussian) #FOR GAUSS
