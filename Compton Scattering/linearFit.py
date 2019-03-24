@@ -28,7 +28,7 @@ f.set_data(xdata = x, ydata = y, eydata = y_error)
 
 
 f.set(b = 0, m = 1)
-f.set(plot_guess = False, xlabel = 'Channel', ylabel = 'Count')
+f.set(plot_guess = False, xlabel = 'Energy', ylabel = 'Channel')
 f.fit()
 
 print(f)
