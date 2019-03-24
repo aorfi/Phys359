@@ -34,10 +34,10 @@ def Step(x, sigma):
 
 #gaussian and step should have the same x_0 and the same sigma 
 
-file = ['Cs137_cali2.dat']
+file = ['Na22_cali2.dat']
 d = np.asarray(s.data.load(file[0]))
-d_x = d[0][317:417]
-d_y = d[1][317:417]
+d_x = d[0][250:310]
+d_y = d[1][250:310]
 
 
 f = s.data.fitter()
@@ -53,8 +53,8 @@ f.set(s = 15, b=1)
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
 click_x3, click_y3 = f.ginput()[0]
-f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = (click_y3 - click_y2)/(click_x3-click_x2), plot_guess = False, xlabel = 'channel',
-      ylabel = 'count')
+f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = (click_y3 - click_y2)/(click_x3-click_x2), plot_guess = False, xlabel = 'Channel',
+      ylabel = 'Count')
 f.set(plot_guess = False, ymin = 2)
 f.fit()
 print(f)
@@ -62,3 +62,7 @@ print(f)
 #s.plot.xy.function('exp(-(x**2)/(18.26**2))', -20,20)
 #s.tweaks.integrate_shown_data()
 #s.plot.xy.function('1.0 - (1.0)/(1.0 + exp(-(1.0/18.26)*x))', -20, 20)
+
+### FOR Cs137
+#d_x = d[0][317:417]
+#d_y = d[1][317:417]
