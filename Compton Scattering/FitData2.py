@@ -36,8 +36,8 @@ def Step(x, sigma):
 
 file = ['Cs137_cali2.dat']
 d = np.asarray(s.data.load(file[0]))
-d_x = d[0][317:417]
-d_y = d[1][317:417]
+d_x = d[0][320:400]
+d_y = d[1][320:400]
 
 
 
@@ -54,7 +54,8 @@ f.set(s = 15, b=1)
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
 click_x3, click_y3 = f.ginput()[0]
-f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = (click_y3 - click_y2)/(click_x3-click_x2), plot_guess = False, xlabel = 'Channel',
+f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = 
+      (click_y3 - click_y2)/(click_x3-click_x2), plot_guess = False, xlabel = 'Channel',
       ylabel = 'Count')
 f.set(plot_guess = False, ymin = 2)
 f.fit()
@@ -82,3 +83,7 @@ print(f)
 ### FOR Ba133 Left most
 #d_x = d[0][32:47]
 #d_y = d[1][32:47]
+
+### FOR Ba133 Right most (more data)
+#d_x = d[0][179:213]
+#d_y = d[1][179:213]
