@@ -34,10 +34,10 @@ def Step(x, sigma):
 
 #gaussian and step should have the same x_0 and the same sigma 
 
-file = ['Cs137_cali2.dat']
+file = ['zeroangle_15deg.dat']
 d = np.asarray(s.data.load(file[0]))
-d_x = d[0][320:400]
-d_y = d[1][320:400]
+d_x = d[0][320:420]
+d_y = d[1][320:420]
 
 
 
@@ -57,7 +57,7 @@ click_x3, click_y3 = f.ginput()[0]
 f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = 
       (click_y3 - click_y2)/(click_x3-click_x2), plot_guess = False, xlabel = 'Channel',
       ylabel = 'Count')
-f.set(plot_guess = False, ymin = 2)
+f.set(plot_guess = True, ymin = 2)
 f.fit()
 print(f)
 
