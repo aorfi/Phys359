@@ -6,16 +6,28 @@ Created on Mon Mar 25 14:55:52 2019
 """
 
 import spinmob as s
+import numpy as np
+import matplotlib.pyplot as plt
+from tempfile import TemporaryFile
 
 #peak1 = s.data.load('cuAu-sampleA-14-01.UXD')
 
-positive = s.data.load('zeroangle_15deg.dat')
-negative = s.data.load('zeroangle_-15deg.dat')
-
+rod = s.data.load('al_30deg.dat')
+norod= s.data.load('norod_30deg.dat')
+x = rod[0]
+y = np.zeros(rod[0].size)
+for i in range(rod[0].size):
+    y[i] = rod[1][i] - norod[1][i]
+    
+#data = [x,y]
+#d = s.data.databox()
+#np.savetxt('30.dat', data)
+#data.save_file()
 alloy_legend = ["Sample A", "Sample B"]
 
-s.plot.xy.data([positive[0],negative[0]],\
-                [positive[1],negative[1]],\
+
+s.plot.xy.data([rod[0],norod[0],x],\
+                [rod[1],norod[1],y],\
                 xlabel = 'Bin',\
                 ylabel = 'Counts',\
                 label = alloy_legend,\

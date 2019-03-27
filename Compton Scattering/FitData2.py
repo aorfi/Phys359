@@ -34,10 +34,10 @@ def Step(x, sigma):
 
 #gaussian and step should have the same x_0 and the same sigma 
 
-file = ['zeroangle_15deg.dat']
+file = ['zeroangle_-15deg.dat']
 d = np.asarray(s.data.load(file[0]))
-d_x = d[0][320:420]
-d_y = d[1][320:420]
+d_x = d[0][343:387]
+d_y = d[1][343:387]
 
 
 
@@ -57,7 +57,7 @@ click_x3, click_y3 = f.ginput()[0]
 f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = 
       (click_y3 - click_y2)/(click_x3-click_x2), plot_guess = False, xlabel = 'Channel',
       ylabel = 'Count')
-f.set(plot_guess = True, ymin = 2)
+f.set(plot_guess = False, ymin = 2)
 f.fit()
 print(f)
 
@@ -88,3 +88,8 @@ print(f)
 ### FOR Ba133 Right most (more data)
 #d_x = d[0][179:213]
 #d_y = d[1][179:213]
+
+
+### FOR Zero 15deg
+#d_x = d[0][335:395]
+#d_y = d[1][335:395]
