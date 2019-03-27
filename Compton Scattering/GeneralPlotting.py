@@ -19,9 +19,18 @@ y = np.zeros(rod[0].size)
 for i in range(rod[0].size):
     y[i] = rod[1][i] - norod[1][i]
     
-#data = [x,y]
+data = np.zeros((2,x.size)) 
+
+for j in range(rod[0].size):
+    data[0][j] = x[i]
+    
+for j in range(rod[1].size):
+    data[1][j] = y[j]
+
 #d = s.data.databox()
-#np.savetxt('30.dat', data)
+np.savetxt('30.txt', data, delimiter=' ,')
+print(data[1])
+print(y)
 #data.save_file()
 alloy_legend = ["Sample A", "Sample B"]
 
