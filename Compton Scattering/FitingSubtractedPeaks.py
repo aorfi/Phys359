@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 20 15:24:58 2019
+Created on Fri Mar 29 12:54:47 2019
 
 @author: Elisa
 """
+
 
 import spinmob as s
 import numpy as np
@@ -13,7 +14,6 @@ from scipy.special import wofz, erf
 import matplotlib.pyplot as plt
 from scipy.special import wofz, erf
 ROOT2 = 2.0**0.5 # Code speedup
-
 
 def Gaussian(x, sigma):
     var = ((x)**2)/(sigma**2)
@@ -35,9 +35,10 @@ def Step(x, sigma):
 #gaussian and step should have the same x_0 and the same sigma 
 
 
-d = np.asarray(np.loadtxt('compton_35deg.txt'))
-d_x = d[0][343:387]
-d_y = d[1][343:387]
+
+d_x = np.asarray(np.loadtxt('compton_35degX.txt', delimiter=' '))
+
+d_y = np.asarray(np.loadtxt('compton_35degY.txt', delimiter=' '))
 
 
 
@@ -60,36 +61,3 @@ f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m =
 f.set(plot_guess = False, ymin = 2)
 f.fit()
 print(f)
-
-#s.plot.xy.function('exp(-(x**2)/(18.26**2))', -20,20)
-#s.tweaks.integrate_shown_data()
-#s.plot.xy.function('1.0 - (1.0)/(1.0 + exp(-(1.0/18.26)*x))', -20, 20)
-
-### FOR Cs137
-#d_x = d[0][320:400]
-#d_y = d[1][320:400]
-
-
-
-### FOR Na22
-#d_x = d[0][250:310]
-#d_y = d[1][250:310]
-
-
-### FOR Ba133 Rigth most
-#d_x = d[0][179:209]
-#d_y = d[1][179:209]
-
-
-### FOR Ba133 Left most
-#d_x = d[0][32:47]
-#d_y = d[1][32:47]
-
-### FOR Ba133 Right most (more data)
-#d_x = d[0][179:213]
-#d_y = d[1][179:213]
-
-
-### FOR Zero 15deg
-#d_x = d[0][335:395]
-#d_y = d[1][335:395]
