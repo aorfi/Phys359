@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Mar 29 13:57:25 2019
+
+@author: Elisa
+"""
+
+import spinmob as s
+import numpy as np
+import matplotlib.pyplot as plt
+from tempfile import TemporaryFile 
+
+#start with the arrays of data: 
+c = np.asarray([320.9, 318.0, 294.1]) #[25deg, 30deg,35deg]
+err_c = np.asarray([1.8, 1.9, 2.6])
+
+#translate them by Xbin numbers, where X is the number of bins obtained from trueAngle analysis 
+Xbin = (371.29-368.14)/2 
+bin_translation = Xbin*np.ones(3)
+
+err_bintranslation = np.ones(3)*np.sqrt(pow(0.54,2)+pow(0.16,2))
+
+#correct channel: 
+channel = np.subtract(c, bin_translation) #subtracting! 
+err_ch = np.sqrt(np.add(pow(err_bintranslation,2),pow(err_c,2)))
+
+#now define m and b, fit parameters of the calibration fit: 
+m = 0.556622*np.ones(3) 
+err_m = 0.00028* np.ones(3) 
+b = -4.685* np.ones(3) 
+err_b = 0.056 *np.ones(3) 
+
+#find error that comes from subtracting channel - b: 
+err_ch_b = np.sqrt(np.add(err_ch**2,err_b**2))
+ch_b = np.subtract(channel, b)
+
+#now find energy and the error on energy: 
+
+ene = np.divide(ch_b,m)
+alpha = pow(np.divide(err_ch_b, ch_b),2)
+beta = pow(np.divide(err_m, m),2)
+err_ene = ene*np.sqrt(alpha+beta)
+
+
+

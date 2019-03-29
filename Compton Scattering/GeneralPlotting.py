@@ -15,7 +15,7 @@ from tempfile import TemporaryFile
 #peak1 = s.data.load('cuAu-sampleA-14-01.UXD')
 
 rod = s.data.load('al_15deg.dat')
-norod= s.data.load('norod2_15deg.dat')
+norod= s.data.load('zeroangle_15deg.dat')
 x = rod[0]
 y = np.zeros(rod[0].size)
 for i in range(rod[0].size):

@@ -36,10 +36,11 @@ def Step(x, sigma):
 
 
 
-d_x = np.asarray(np.loadtxt('compton_35degX.txt', delimiter=' '))
+dx = np.asarray(np.loadtxt('compton_15degX.txt', delimiter=' '))
+dy = np.asarray(np.loadtxt('compton_15degY.txt', delimiter=' '))
 
-d_y = np.asarray(np.loadtxt('compton_35degY.txt', delimiter=' '))
-
+d_x = dx[:]
+d_y = dy[:]
 
 
 f = s.data.fitter()
