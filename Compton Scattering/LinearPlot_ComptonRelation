@@ -15,21 +15,27 @@ from tempfile import TemporaryFile
 c = np.asarray([320.9, 318.0, 294.1]) #[25deg, 30deg,35deg]
 err_c = np.asarray([1.8, 1.9, 2.6])
 
+angle = np.asarray([25,30,35])*np.pi/180
+err_angle = np.asarray([0.5,0.5,0.5])*np.pi/180
+
+
+n = c.size
+
 #translate them by Xbin numbers, where X is the number of bins obtained from trueAngle analysis 
 Xbin = (371.29-368.14)/2 
-bin_translation = Xbin*np.ones(3)
+bin_translation = Xbin*np.ones(n)
 
-err_bintranslation = np.ones(3)*np.sqrt(pow(0.54,2)+pow(0.16,2))
+err_bintranslation = np.ones(n)*np.sqrt(pow(0.54,2)+pow(0.16,2))
 
 #correct channel: 
 channel = np.subtract(c, bin_translation) #subtracting! 
 err_ch = np.sqrt(np.add(pow(err_bintranslation,2),pow(err_c,2)))
 
 #now define m and b, fit parameters of the calibration fit: 
-m = 0.556622*np.ones(3) 
-err_m = 0.00028* np.ones(3) 
-b = -4.685* np.ones(3) 
-err_b = 0.056 *np.ones(3) 
+m = 0.556622*np.ones(n) 
+err_m = 0.00028* np.ones(n) 
+b = -4.685* np.ones(n) 
+err_b = 0.056 *np.ones(n) 
 
 #find error that comes from subtracting channel - b: 
 err_ch_b = np.sqrt(np.add(err_ch**2,err_b**2))
@@ -42,5 +48,34 @@ alpha = pow(np.divide(err_ch_b, ch_b),2)
 beta = pow(np.divide(err_m, m),2)
 err_ene = ene*np.sqrt(alpha+beta)
 
+
+#original energy of incoming ray: 
+e_0 = np.ones(n)*661.657
+h = pow(10, -34)*6.626070040
+c = 299792458
+
+#finding delta_lambda: 
+delta_lambda = h*c*np.subtract(np.divide(1,e_0), np.divide(1,ene))
+delta_lambda_err = h*c*err_ene
+
+#the x axis will be (1 - cos(theta)): 
+x_axis = 1-np.cos(angle)
+x_err= np.abs(np.multiply(err_angle,np.sin(angle)))
+
+#plot: 
+
+plt.errorbar(x_axis, delta_lambda, yerr = delta_lambda_err, xerr = x_err, fmt='.')
+
+#now perform a fit 
+f = s.data.fitter()
+f.set_functions('m*x ', 'm')
+f.set_data(xdata = x_axis, ydata = delta_lambda, eydata = delta_lambda_err)
+f.set(m = pow(10,-11))
+
+### CLICK
+f.set(plot_guess = False, xlabel = 'TBD',
+      ylabel = 'TBD')
+f.fit()
+print(f)
 
 
