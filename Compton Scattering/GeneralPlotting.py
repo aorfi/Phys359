@@ -22,15 +22,17 @@ for i in range(rod[0].size):
 data = np.zeros((2,x.size)) 
 
 for j in range(rod[0].size):
-    data[0][j] = x[i]
+    data[0][j] = x[j]
     
 for j in range(rod[1].size):
     data[1][j] = y[j]
+    
+
 
 #d = s.data.databox()
-np.savetxt('30.txt', data, delimiter=' ,')
-print(data[1])
-print(y)
+#np.savetxt('30.txt', data, delimiter=' ,')
+#print(data[1])
+#print(y)
 #data.save_file()
 alloy_legend = ["Sample A", "Sample B"]
 
@@ -43,3 +45,7 @@ s.plot.xy.data([rod[0],norod[0],x],\
                 legend = 'right')
 #s.plot.xy.data(peak1[0], peak1[1])
 #s.plot.xy.data(peak2[0], peak2[1]
+
+#now, x and y are the data from subtracting rod and no rod. 
+print(data)
+np.savetxt('30_test.txt', np.transpose(data), delimiter =',', newline = ' ')
