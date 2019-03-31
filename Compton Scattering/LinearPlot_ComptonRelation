@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 from tempfile import TemporaryFile 
 
 #start with the arrays of data: 
-c = np.asarray([320.9, 318.0, 294.1]) #[25deg, 30deg,35deg]
-err_c = np.asarray([1.8, 1.9, 2.6])
+c = np.asarray([320.9, 306.6, 294.1]) #[25deg, 30deg,35deg]
+err_c = np.asarray([1.8, 1.2, 2.6])
 
 angle = np.asarray([25,30,35])*np.pi/180
 err_angle = np.asarray([0.5,0.5,0.5])*np.pi/180
@@ -31,7 +31,7 @@ err_bintranslation = np.ones(n)*np.sqrt(pow(0.54,2)+pow(0.16,2))
 channel = np.subtract(c, bin_translation) #subtracting! 
 err_ch = np.sqrt(np.add(pow(err_bintranslation,2),pow(err_c,2)))
 
-#now define m and b, fit parameters of the calibration fit: 
+#now define m and b, fit parameters of the calibration: 
 m = 0.556622*np.ones(n) 
 err_m = 0.00028* np.ones(n) 
 b = -4.685* np.ones(n) 
@@ -54,28 +54,38 @@ e_0 = np.ones(n)*661.657
 h = pow(10, -34)*6.626070040
 c = 299792458
 
-#finding delta_lambda: 
-delta_lambda = h*c*np.subtract(np.divide(1,e_0), np.divide(1,ene))
-delta_lambda_err = h*c*err_ene
+#finding delta_lambda/(hc): 
+delta_lambda = np.subtract(np.divide(1,ene), np.divide(1,e_0))
+#finding error on delta lambda: 
+
+delta_lambda_err = np.divide(1,err_ene)
 
 #the x axis will be (1 - cos(theta)): 
 x_axis = 1-np.cos(angle)
 x_err= np.abs(np.multiply(err_angle,np.sin(angle)))
 
+
+#theoretical slope of this line: 1 / (electron rest energy)
+m_theo = 1/(9.1*10**(-31)*(3*10**8)**2)
+theoretical_line = m_theo * x_axis
 #plot: 
 
-plt.errorbar(x_axis, delta_lambda, yerr = delta_lambda_err, xerr = x_err, fmt='.')
+#plt.errorbar(x_axis, delta_lambda, yerr = delta_lambda_err, xerr = x_err, fmt='.')
+plt.plot(x_axis,theoretical_line)
+plt.plot(x_axis, delta_lambda, marker='.')
+plt.show()
 
+#print(delta_lambda_err)
 #now perform a fit 
-f = s.data.fitter()
-f.set_functions('m*x ', 'm')
-f.set_data(xdata = x_axis, ydata = delta_lambda, eydata = delta_lambda_err)
-f.set(m = pow(10,-11))
-
-### CLICK
-f.set(plot_guess = False, xlabel = 'TBD',
-      ylabel = 'TBD')
-f.fit()
-print(f)
+#f = s.data.fitter()
+#f.set_functions('m*x ', 'm')
+#f.set_data(xdata = x_axis, ydata = delta_lambda, eydata = delta_lambda_err)
+#f.set(m = 1)
+##
+##### CLICK
+#f.set(plot_guess = False, xlabel = '1-cos(theta)',
+#     ylabel = '(1/E1) - (1/E2)')
+#f.fit()
+#print(f)
 
 

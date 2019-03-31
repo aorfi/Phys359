@@ -36,13 +36,13 @@ def Step(x, sigma):
 
 
 
-dx = np.asarray(np.loadtxt('compton_15degX.txt', delimiter=' '))
-dy = np.asarray(np.loadtxt('compton_15degY.txt', delimiter=' '))
+dx = np.asarray(np.loadtxt('compton_30degX.txt', delimiter=' '))
+dy = np.asarray(np.loadtxt('compton_30degY.txt', delimiter=' '))
 
-d_x = dx[:]
-d_y = dy[:]
+d_x = dx[290:325]
+d_y = dy[290:325]
 
-
+#
 f = s.data.fitter()
 
 f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s) + L(x,m,b)', 'A1, x0, s, A2, m,b', G= Gaussian, S = Step, L=Line) 
@@ -56,6 +56,7 @@ f.set(s = 15, b=1)
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
 click_x3, click_y3 = f.ginput()[0]
+
 f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = 
       (click_y3 - click_y2)/(click_x3-click_x2), plot_guess = False, xlabel = 'Channel',
       ylabel = 'Count')

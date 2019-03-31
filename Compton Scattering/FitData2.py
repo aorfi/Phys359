@@ -35,10 +35,9 @@ def Step(x, sigma):
 #gaussian and step should have the same x_0 and the same sigma 
 
 
-d = np.asarray(np.loadtxt('compton_35deg.txt'))
-d_x = d[0][343:387]
-d_y = d[1][343:387]
-
+d = np.transpose(np.asarray(np.loadtxt('Cs137_cali2.dat')))
+d_x = d[0][320:400]
+d_y = d[1][320:400]
 
 
 f = s.data.fitter()
@@ -61,7 +60,8 @@ f.set(plot_guess = False, ymin = 2)
 f.fit()
 print(f)
 
-#s.plot.xy.function('exp(-(x**2)/(18.26**2))', -20,20)
+
+s.plot.xy.function('exp(-((x-360)**2)/(18**2))', 300,400)
 #s.tweaks.integrate_shown_data()
 #s.plot.xy.function('1.0 - (1.0)/(1.0 + exp(-(1.0/18.26)*x))', -20, 20)
 
@@ -69,17 +69,13 @@ print(f)
 #d_x = d[0][320:400]
 #d_y = d[1][320:400]
 
-
-
 ### FOR Na22
 #d_x = d[0][250:310]
 #d_y = d[1][250:310]
 
-
 ### FOR Ba133 Rigth most
 #d_x = d[0][179:209]
 #d_y = d[1][179:209]
-
 
 ### FOR Ba133 Left most
 #d_x = d[0][32:47]
@@ -88,7 +84,6 @@ print(f)
 ### FOR Ba133 Right most (more data)
 #d_x = d[0][179:213]
 #d_y = d[1][179:213]
-
 
 ### FOR Zero 15deg
 #d_x = d[0][335:395]
