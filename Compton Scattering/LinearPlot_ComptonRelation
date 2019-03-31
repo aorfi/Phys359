@@ -66,7 +66,7 @@ x_err= np.abs(np.multiply(err_angle,np.sin(angle)))
 
 
 #theoretical slope of this line: 1 / (electron rest energy)
-m_theo = 1/(9.1*10**(-31)*(3*10**8)**2)
+m_theo = 0.001931
 theoretical_line = m_theo * x_axis
 #plot: 
 
