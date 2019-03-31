@@ -58,7 +58,7 @@ c = 299792458
 inverse_ene = np.subtract(np.divide(1,ene), np.divide(1,e_0))
 #finding error on delta lambda: 
 
-inverse_ene_err = np.divide(1,err_ene*1000)
+inverse_ene_err = np.divide(1,err_ene*1000) #AN: If i do this to the error bars it works lol but otherwise they are WAY too big 
 
 #the x axis will be (1 - cos(theta)): 
 x_axis = 1-np.cos(angle)
