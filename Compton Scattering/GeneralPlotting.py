@@ -14,8 +14,8 @@ from tempfile import TemporaryFile
 
 #peak1 = s.data.load('cuAu-sampleA-14-01.UXD')
 
-rod = s.data.load('al_40deg.dat')
-norod = s.data.load('norod_40deg.dat')
+rod = s.data.load('al_20deg.dat')
+norod = s.data.load('norod_20deg.dat')
 
 
 x = rod[0]
@@ -67,5 +67,5 @@ s.plot.xy.data([rod[0],norod[0],x,x],\
 
 
 #now, x and y are the data from subtracting rod and no rod.
-np.savetxt('40edegX.txt', np.transpose(data[0]), delimiter =' ')
-np.savetxt('40edegY.txt', np.transpose(data[1]), delimiter =' ')
+np.savetxt('20edegX.txt', np.transpose(data[0]), delimiter =' ')
+np.savetxt('20edegY.txt', np.transpose(data[1]), delimiter =' ')
