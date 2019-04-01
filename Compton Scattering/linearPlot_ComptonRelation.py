@@ -19,11 +19,11 @@ from tempfile import TemporaryFile
 
 
 ###### LINEAR WORKS BETTER 
-c = np.asarray([320.9, 306.6, 294.1]) #[25deg, 30deg,35deg]
+c = np.asarray([320.9, 306.6, 294.1]) #[20, 25deg, 30deg,35deg, 40]
 err_c = np.asarray([1.8, 1.2, 2.6])
 
-angle = np.asarray([25,30,35])*np.pi/180
-err_angle = np.asarray([0.5,0.5,0.5])*np.pi/180
+angle = np.asarray([20,25,30,35,40])*np.pi/180
+err_angle = np.asarray([0.5,0.5,0.5,0.5,0.5])*np.pi/180
 
 
 n = c.size
