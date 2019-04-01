@@ -91,7 +91,7 @@ f.set_data(xdata = x_axis, ydata = inverse_ene, eydata = inverse_ene_err)
 f.set(m = m_theo)
 ##
 ##### CLICK
-f.set(plot_guess = False, xlabel = '1-cos(theta)',
+f.set(plot_guess = False, xlabel = '1-cos'r'($\theta$)',
      ylabel = '(1/E1) - (1/E2)')
 f.fit()
 print(f)
