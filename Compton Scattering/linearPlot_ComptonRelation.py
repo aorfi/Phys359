@@ -18,12 +18,12 @@ from tempfile import TemporaryFile
 #err_c = np.asarray([0.37, 1.2, 0.34])
 
 
-###### LINEAR
-c = np.asarray([320.9, 306.6, 294.1]) #[25deg, 30deg,35deg]
+###### LINEAR WORKS BETTER 
+c = np.asarray([320.9, 306.6, 294.1]) #[20, 25deg, 30deg,35deg, 40]
 err_c = np.asarray([1.8, 1.2, 2.6])
 
-angle = np.asarray([25,30,35])*np.pi/180
-err_angle = np.asarray([0.5,0.5,0.5])*np.pi/180
+angle = np.asarray([20,25,30,35,40])*np.pi/180
+err_angle = np.asarray([0.5,0.5,0.5,0.5,0.5])*np.pi/180
 
 
 n = c.size
@@ -65,8 +65,9 @@ c = 299792458
 inverse_ene = np.subtract(np.divide(1,ene), np.divide(1,e_0))
 #finding error on delta lambda: 
 
-inverse_ene_err = err_ene * np.power(inverse_ene,2) #AN: If i do this to the error bars it works lol but otherwise they are WAY too big 
-
+inverse_ene_err = err_ene * np.power(np.divide(1,ene),2) #AN: If i do this to the error bars it works lol but otherwise they are WAY too big 
+#ELISA: I corrected it because inverse_ene is not the same thing as 1/ene :) 
+    
 #the x axis will be (1 - cos(theta)): 
 x_axis = 1-np.cos(angle)
 x_err= np.abs(np.multiply(err_angle,np.sin(angle)))
@@ -90,7 +91,7 @@ f.set_data(xdata = x_axis, ydata = inverse_ene, eydata = inverse_ene_err)
 f.set(m = m_theo)
 ##
 ##### CLICK
-f.set(plot_guess = False, xlabel = '1-cos(theta)',
+f.set(plot_guess = False, xlabel = '1-cos'r'($\theta$)',
      ylabel = '(1/E1) - (1/E2)')
 f.fit()
 print(f)

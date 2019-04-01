@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tempfile import TemporaryFile
 
-#TO SAVE SUBTRACTED DATA! 
+#TO SAVE SUBTRACTED DATA!
 
 #peak1 = s.data.load('cuAu-sampleA-14-01.UXD')
 
@@ -21,7 +21,7 @@ norod = s.data.load('norod_35deg.dat')
 x = rod[0]
 
 rod_eff = np.zeros(rod[0].size)
-norod_eff = np.zeros(rod[0].size) 
+norod_eff = np.zeros(rod[0].size)
 for i in range(rod[0].size):
      a = x[i]
      eff = 1/100*(2.5*10**(-12)*a**5 - 6.3*10**(-9)*a**4 + 5.9*10**(-6)*a**3 - 0.0023*a**2 + 0.17*a + 95) #efficiancy curve
@@ -34,20 +34,20 @@ for i in range(rod[0].size):
 y = np.zeros(rod[0].size)#for rod-nonrod
 for i in range(rod[0].size):
     y[i] = rod[1][i] - norod[1][i]
-ye = np.zeros(rod[0].size)#for efficieny division 
+ye = np.zeros(rod[0].size)#for efficieny division
 for i in range(rod[0].size):
     ye[i] = rod_eff[i] - norod_eff[i]
 
-    
-data = np.zeros((2,x.size)) 
+
+data = np.zeros((2,x.size))
 
 for j in range(rod[0].size):
     data[0][j] = x[j]
-    
+
 for j in range(rod[1].size):
     data[1][j] = ye[j]
-    
-    
+
+
 
 
 
@@ -66,6 +66,6 @@ s.plot.xy.data([rod[0],norod[0],x,x],\
 #s.plot.xy.data(x, eff)
 
 
-#now, x and y are the data from subtracting rod and no rod. 
+#now, x and y are the data from subtracting rod and no rod.
 np.savetxt('35edegX.txt', np.transpose(data[0]), delimiter =' ')
 np.savetxt('35edegY.txt', np.transpose(data[1]), delimiter =' ')
