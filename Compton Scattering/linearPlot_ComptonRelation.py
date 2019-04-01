@@ -12,6 +12,13 @@ import matplotlib.pyplot as plt
 from tempfile import TemporaryFile 
 
 #start with the arrays of data: 
+
+###### NO LINEAR
+#c = np.asarray([323.91, 306.6, 295.75])
+#err_c = np.asarray([0.37, 1.2, 0.34])
+
+
+###### LINEAR
 c = np.asarray([320.9, 306.6, 294.1]) #[25deg, 30deg,35deg]
 err_c = np.asarray([1.8, 1.2, 2.6])
 
@@ -58,7 +65,7 @@ c = 299792458
 inverse_ene = np.subtract(np.divide(1,ene), np.divide(1,e_0))
 #finding error on delta lambda: 
 
-inverse_ene_err = np.divide(1,err_ene*1000) #AN: If i do this to the error bars it works lol but otherwise they are WAY too big 
+inverse_ene_err = err_ene * np.power(inverse_ene,2) #AN: If i do this to the error bars it works lol but otherwise they are WAY too big 
 
 #the x axis will be (1 - cos(theta)): 
 x_axis = 1-np.cos(angle)
@@ -66,7 +73,7 @@ x_err= np.abs(np.multiply(err_angle,np.sin(angle)))
 
 
 #theoretical slope of this line: 1 / (electron rest energy)
-m_theo = 0.001931 #taken from that link
+m_theo = 0.001931 #taken from that link #This is in KeV
 theoretical_line = m_theo * x_axis
 #plot: 
 
@@ -78,7 +85,7 @@ plt.show()
 #print(delta_lambda_err)
 #now perform a fit 
 f = s.data.fitter()
-f.set_functions('m*x ', 'm')
+f.set_functions('m*x + b ', 'm, b')
 f.set_data(xdata = x_axis, ydata = inverse_ene, eydata = inverse_ene_err)
 f.set(m = m_theo)
 ##
