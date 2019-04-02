@@ -36,16 +36,32 @@ def Step(x, sigma):
 
 
 
-dx = np.asarray(np.loadtxt('compton_35degX.txt', delimiter=' '))
-dy = np.asarray(np.loadtxt('compton_35degY.txt', delimiter=' '))
+dx = np.asarray(np.loadtxt('4brickX.txt', delimiter=' '))
+dy = np.asarray(np.loadtxt('4brickY.txt', delimiter=' '))
+
+#for 1 brick
+#d_x = dx[340:390]
+#d_y = dy[340:390]
+
+#for 2 brick
+#d_x = dx[340:385]
+#d_y = dy[340:385]
+
+#for 3 brick
+#d_x = dx[340:385]
+#d_y = dy[340:385]
+
+#for 4 brick
+d_x = dx[340:380]
+d_y = dy[340:380]
 
 # FOR 25
 #d_x = dx[300:348]
 #d_y = dy[300:348]
 
 # FOR 35
-d_x = dx[270:320]
-d_y = dy[270:320]
+#d_x = dx[270:320]
+#d_y = dy[270:320]
 
 
 # FOR 30

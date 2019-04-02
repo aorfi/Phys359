@@ -16,7 +16,7 @@ from tempfile import TemporaryFile
 
 rod = s.data.load('al_20deg.dat')
 norod = s.data.load('norod_20deg.dat')
-brick = s.data.load('4brick.dat')
+brick = s.data.load('3brick.dat')
 
 
 x = rod[0]
@@ -53,7 +53,7 @@ for j in range(rod[1].size):
 brick_data = np.zeros((2,x.size))
 
 for j in range(brick[0].size):
-    brick_data[0][j] = x[j]
+    brick_data[0][j] = brick[0][j]
 
 for j in range(brick[1].size):
     brick_data[1][j] = brick_eff[j]
@@ -62,23 +62,25 @@ for j in range(brick[1].size):
 
 
 
-alloy_legend = ["Rod", "No Rod", "Subtraction", "Efficiancy"]
+# =============================================================================
+# alloy_legend = ["Rod", "No Rod", "Subtraction", "Efficiancy"]
+# 
+# 
+# 
+# s.plot.xy.data([rod[0],norod[0],x,x],\
+#                  [rod[1],norod[1],y,ye],\
+#                  xlabel = 'Bin',\
+#                  ylabel = 'Counts',\
+#                  label = alloy_legend,\
+#                  legend = 'right')
+# =============================================================================
 
 
-
-s.plot.xy.data([rod[0],norod[0],x,x],\
-                 [rod[1],norod[1],y,ye],\
-                 xlabel = 'Bin',\
-                 ylabel = 'Counts',\
-                 label = alloy_legend,\
-                 legend = 'right')
-
-
-#s.plot.xy.data(x, eff)
+s.plot.xy.data(brick_data[0], brick_data[1])
 
 
 #now, x and y are the data from subtracting rod and no rod.
-np.savetxt('4brickX.txt', np.transpose(brick_data[0]), delimiter =' ')
-np.savetxt('4brickY.txt', np.transpose(brick_data[0]), delimiter =' ')
+np.savetxt('3brickX.txt', np.transpose(brick_data[0]), delimiter =' ')
+np.savetxt('3brickY.txt', np.transpose(brick_data[1]), delimiter =' ')
 #np.savetxt('20edegX.txt', np.transpose(data[0]), delimiter =' ')
 #np.savetxt('20edegY.txt', np.transpose(data[1]), delimiter =' ')
