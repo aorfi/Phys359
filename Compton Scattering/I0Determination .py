@@ -32,19 +32,19 @@ y_values = [y1,y2,y3,y4]
 
 ytest = np.zeros(4)
 for i in range (0,3):
-    ytest[i] = 1200000*math.exp(-3*x_values[i])
+    ytest[i] = 120000*math.exp(-1*x_values[i])
     
 
-s.plot.xy.data([x_values,x_values],[y_values,ytest])
+#s.plot.xy.data([x_values,x_values],[y_values,ytest])
 
 f = s.data.fitter()
 a = 3466 #check this
-f.set_functions('I*e**(-3466*x)','I') 
+f.set_functions('I*e**(-0.08236*x)','I') 
 
 y_error = 100
 
 f.set_data(xdata = x_values, ydata = y_values , eydata = y_error)
-f.set(I = 1000)
+f.set(I = 120000)
 
 
 f.set(plot_guess = True, xlabel = 'thickness',
