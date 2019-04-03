@@ -39,12 +39,12 @@ for i in range (0,3):
 
 f = s.data.fitter()
 a = 3466 #check this
-f.set_functions('I*e**(-0.08236*x)','I') 
+f.set_functions('I*e**(-a*x)','I,a') 
 
 y_error = 100
 
 f.set_data(xdata = x_values, ydata = y_values , eydata = y_error)
-f.set(I = 120000)
+f.set(I = 400000, a=12)
 
 
 f.set(plot_guess = True, xlabel = 'thickness',
