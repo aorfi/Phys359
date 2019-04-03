@@ -36,8 +36,9 @@ def Step(x, sigma):
 
 
 
-dx = np.asarray(np.loadtxt('4brickX.txt', delimiter=' '))
-dy = np.asarray(np.loadtxt('4brickY.txt', delimiter=' '))
+dx = np.asarray(np.loadtxt('20edegX.txt', delimiter=' '))
+dy = np.asarray(np.loadtxt('20edegY.txt', delimiter=' '))
+y_sum = np.asarray(np.loadtxt('20edegY_error.txt'))
 
 #for 1 brick
 #d_x = dx[340:390]
@@ -52,8 +53,8 @@ dy = np.asarray(np.loadtxt('4brickY.txt', delimiter=' '))
 #d_y = dy[340:385]
 
 #for 4 brick
-d_x = dx[340:380]
-d_y = dy[340:380]
+#d_x = dx#[340:380]
+#d_y = dy#[340:380]
 
 # FOR 25
 #d_x = dx[300:348]
@@ -79,20 +80,24 @@ d_y = dy[340:380]
 
 f = s.data.fitter()
 
-f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s) + L(x,m,b)', 'A1, x0, s, A2, m,b', G= Gaussian, S = Step, L=Line) 
+f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s)', 'A1, x0, s, A2', G= Gaussian, S = Step) 
 #f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s)', 'A1,x0,s,A2', G = Gaussian, S = Step)
 
-y_error = d_y**(1/2)
+y_error = y_sum**(1/2)
 
-f.set_data(xdata = d_x, ydata = d_y, eydata = y_error)
-f.set(s = 15, b=1)
+f.set_data(xdata = dx, ydata = dy, eydata = y_error)
+f.set(s = 50)
 
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
-click_x3, click_y3 = f.ginput()[0]
+#click_x3, click_y3 = f.ginput()[0]
+f.set(xmin = click_x1 - 100, xmax = click_x1 + 100)
 
-f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = (click_y2-click_y3)/(click_x2-click_x3),  plot_guess = False, xlabel = 'Channel',
+f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1,  plot_guess = True, xlabel = 'Channel',
       ylabel = 'Count')
-f.set(plot_guess = False, ymin = 2)
+f.set(plot_guess = True, ymin = 1)
 f.fit()
 print(f)
+
+
+#f(plot_all_data = True)
