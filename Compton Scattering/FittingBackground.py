@@ -64,7 +64,7 @@ click_x3, click_y3 = f.ginput()[0]
 
 f.set(xmin=220,xmax=400)
 
-f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = (click_y2-click_y3)/(click_x2-click_x3),  plot_guess = False, xlabel = 'Channel',
+f.set(x0 = click_x1, A1= click_y1, A2 = click_y3 - click_y2, m = (click_y2-click_y3)/(click_x2-click_x3),  plot_guess = False, xlabel = 'Channel',
       ylabel = 'Count')
 f.set(plot_guess = False, ymin = 2)
 f.fit()
