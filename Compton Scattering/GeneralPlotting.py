@@ -70,12 +70,10 @@ for j in range(rod[1].size):
 # 
 # 
 # 
-# s.plot.xy.data([rod[0],norod[0],x,x],\
+#s.plot.xy.data([rod[0],norod[0],x,x],\
 #                  [rod[1],norod[1],y,ye],\
 #                  xlabel = 'Bin',\
-#                  ylabel = 'Counts',\
-#                  label = alloy_legend,\
-#                  legend = 'right')
+#                  ylabel = 'Counts')
 # =============================================================================
 
 
@@ -85,6 +83,9 @@ for j in range(rod[1].size):
 #now, x and y are the data from subtracting rod and no rod.
 #np.savetxt('3brickX.txt', np.transpose(brick_data[0]), delimiter =' ')
 #np.savetxt('3brickY.txt', np.transpose(brick_data[1]), delimiter =' ')
-np.savetxt('20edegX.txt', np.transpose(data[0]), delimiter =' ')
-np.savetxt('20edegY.txt', np.transpose(data[1]), delimiter =' ')
-np.savetxt('20edegY_error.txt', np.transpose(error), delimiter =' ')
+#np.savetxt('20edegX.txt', np.transpose(data[0]), delimiter =' ')
+#np.savetxt('20edegY.txt', np.transpose(data[1]), delimiter =' ')
+#np.savetxt('20edegY_error.txt', np.transpose(error), delimiter =' ')
+
+np.savetxt('20deg_norodY_efficiency.txt', np.transpose(norod_eff), delimiter =' ')
+np.savetxt('20deg_rodY_efficiency.txt', np.transpose(rod_eff), delimiter =' ')
