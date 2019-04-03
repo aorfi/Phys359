@@ -34,8 +34,8 @@ def Step(x, sigma):
 
 
 
-rod = s.data.load('al_30deg.dat')
-norod = s.data.load('norod_30deg.dat')
+rod = s.data.load('al_20deg.dat')
+norod = s.data.load('norod_20deg.dat')
 
 #alloy_legend = ["Rod", "No Rod", "Subtraction", "Efficiancy"]
 #s.plot.xy.data([rod[0],norod[0]],\
@@ -59,7 +59,7 @@ click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
 click_x3, click_y3 = f.ginput()[0]
 
-f.set(xmin=200,xmax=375)
+f.set(xmin=220,xmax=400)
 
 f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, m = (click_y2-click_y3)/(click_x2-click_x3),  plot_guess = False, xlabel = 'Channel',
       ylabel = 'Count')
@@ -81,7 +81,7 @@ click_x1, click_y1 = g.ginput()[0]
 click_x2, click_y2 = g.ginput()[0]
 click_x3, click_y3 = g.ginput()[0]
 
-g.set(xmin=200,xmax=375)
+g.set(xmin=220,xmax=400)
 
 g.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, plot_guess = False, xlabel = 'Channel',
       ylabel = 'Count')
