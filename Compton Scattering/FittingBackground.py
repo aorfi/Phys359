@@ -34,10 +34,13 @@ def Step(x, sigma):
 
 
 
-rod = s.data.load('al_40deg.dat')
-norod = s.data.load('norod_40deg.dat')
+rod = s.data.load('al_30deg.dat')
+norod = s.data.load('norod_30deg.dat')
 
-#alloy_legend = ["Rod", "No Rod", "Subtraction", "Efficiancy"]
+rodef = np.asarray(np.loadtxt('30deg_rodY_efficiency.txt', delimiter=' ')) 
+norodef = np.asarray(np.loadtxt('30deg_norodY_efficiency.txt', delimiter=' ')) 
+
+#alloy_legend = ["Rod", "No Rod", "Subtraction", "Efficiancy"] 
 #s.plot.xy.data([rod[0],norod[0]],\
 #                  [rod[1],norod[1]],\
 #                  xlabel = 'Bin',\
@@ -50,9 +53,9 @@ f = s.data.fitter()
 f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s) + L(x,m,b)', 'A1, x0, s, A2, m,b', G= Gaussian, S = Step, L=Line) 
 #f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s)', 'A1,x0,s,A2', G = Gaussian, S = Step)
 
-y_error = norod[1]**(1/2)
+y_error = norodef**(1/2)
 
-f.set_data(xdata = norod[0], ydata = norod[1], eydata = y_error)
+f.set_data(xdata = norod[0], ydata = norodef, eydata = y_error)
 f.set(s = 15, b=1)
 
 click_x1, click_y1 = f.ginput()[0]
@@ -72,9 +75,9 @@ BA1, Bx0, Bs, BA2, Bm, Bb = f.results[0]
 g = s.data.fitter()
 g.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s) + A3*(bA1*G(x-bx0, bs) + bA2*S(x-bx0, bs) + L(x,bm,bb)) ', 'A1, x0, s, A2, A3', G= Gaussian, S = Step, L=Line,bA1=BA1, bs=Bs, bx0=Bx0, bA2=BA2, bm=Bm, bb=Bb) 
 
-y_error = rod[1]**(1/2)
+y_error = rodef**(1/2)
 
-g.set_data(xdata = rod[0], ydata = rod[1], eydata = y_error)
+g.set_data(xdata = rod[0], ydata = rodef, eydata = y_error)
 g.set(s = 15, A3=1)
 
 click_x1, click_y1 = g.ginput()[0]
@@ -96,13 +99,13 @@ Gua = A1*Gaussian(x-x0, s1)
 back = A3*(BA1*Gaussian(x-Bx0, Bs) + BA2*Step(x-Bx0, Bs) + Line(x,Bm,Bb))
 
 
-alloy_legend = ["Rod", "background", "Step Function", "Gaussian"]
-s.plot.xy.data([x,x,x,x],\
-                  [rod[1],back,step,Gua],\
-                  xlabel = 'Bin',\
-                  ylabel = 'Counts',\
-                  label = alloy_legend,\
-                  legend = 'right')
+#alloy_legend = ["Rod", "background", "Step Function", "Gaussian"]
+#s.plot.xy.data([x,x,x,x],\
+#                  [rodef,back,step,Gua],\
+#                  xlabel = 'Bin',\
+#                  ylabel = 'Counts',\
+#                  label = alloy_legend,\
+#                  legend = 'right')
 
 
 
