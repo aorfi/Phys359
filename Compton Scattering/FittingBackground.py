@@ -34,8 +34,8 @@ def Step(x, sigma):
 
 
 
-rod = s.data.load('al_20deg.dat')
-norod = s.data.load('norod_20deg.dat')
+rod = s.data.load('al_40deg.dat')
+norod = s.data.load('norod_40deg.dat')
 
 #alloy_legend = ["Rod", "No Rod", "Subtraction", "Efficiancy"]
 #s.plot.xy.data([rod[0],norod[0]],\
@@ -88,3 +88,21 @@ g.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, plot_guess = False,
 g.set(plot_guess = False, ymin = 2)
 g.fit()
 print(g)
+
+A1, x0, s1, A2, A3= g.results[0]
+x = rod[0]
+step = A2*Step(x-x0, s1)
+Gua = A1*Gaussian(x-x0, s1)
+back = A3*(BA1*Gaussian(x-Bx0, Bs) + BA2*Step(x-Bx0, Bs) + Line(x,Bm,Bb))
+
+
+alloy_legend = ["Rod", "background", "Step Function", "Gaussian"]
+s.plot.xy.data([x,x,x,x],\
+                  [rod[1],back,step,Gua],\
+                  xlabel = 'Bin',\
+                  ylabel = 'Counts',\
+                  label = alloy_legend,\
+                  legend = 'right')
+
+
+
