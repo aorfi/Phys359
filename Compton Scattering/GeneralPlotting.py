@@ -14,8 +14,8 @@ from tempfile import TemporaryFile
 
 #peak1 = s.data.load('cuAu-sampleA-14-01.UXD')
 
-rod = s.data.load('al_40deg.dat')
-norod = s.data.load('norod_40deg.dat')
+rod = s.data.load('al_20deg.dat')
+norod = s.data.load('norod_20deg.dat')
 #brick = s.data.load('3brick.dat')
 
 
@@ -85,6 +85,6 @@ for j in range(rod[1].size):
 #now, x and y are the data from subtracting rod and no rod.
 #np.savetxt('3brickX.txt', np.transpose(brick_data[0]), delimiter =' ')
 #np.savetxt('3brickY.txt', np.transpose(brick_data[1]), delimiter =' ')
-#np.savetxt('20edegX.txt', np.transpose(data[0]), delimiter =' ')
-#np.savetxt('20edegY.txt', np.transpose(data[1]), delimiter =' ')
-np.savetxt('40edegY_error.txt', np.transpose(error), delimiter =' ')
+np.savetxt('20edegX.txt', np.transpose(data[0]), delimiter =' ')
+np.savetxt('20edegY.txt', np.transpose(data[1]), delimiter =' ')
+np.savetxt('20edegY_error.txt', np.transpose(error), delimiter =' ')
