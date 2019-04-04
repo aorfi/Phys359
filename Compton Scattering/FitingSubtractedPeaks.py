@@ -40,7 +40,7 @@ def Step(x, sigma):
 #dy = np.asarray(np.loadtxt('20edegY.txt', delimiter=' '))
 #y_sum = np.asarray(np.loadtxt('20edegY_error.txt'))
     
-data = s.data.load('1brickEFF.dat')
+data = s.data.load('2brickEFF.dat')
 dx = data[0]
 dy = data[1]
 
@@ -103,5 +103,18 @@ f.set(plot_guess = True, ymin = 1)
 f.fit()
 print(f)
 
+A1, x0, s1, A2= f.results[0]
+x = dx
+step = A2*Step(x-x0, s1)
+Gua = A1*Gaussian(x-x0, s1)
+
+
+#alloy_legend = ["Rod", "background", "Step Function", "Gaussian"]
+#s.plot.xy.data([dx,dx,dx],\
+#                  [dy,step,Gua],\
+#                  xlabel = 'Bin',\
+#                  ylabel = 'Counts',\
+#                  label = alloy_legend,\
+#                  legend = 'right')
 
 #f(plot_all_data = True)
