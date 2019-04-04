@@ -44,77 +44,40 @@ data = s.data.load('2brickEFF.dat')
 dx = data[0]
 dy = data[1]
 
-#for 1 brick
-#d_x = dx[340:390]
-#d_y = dy[340:390]
-
-#for 2 brick
-#d_x = dx[340:385]
-#d_y = dy[340:385]
-
-#for 3 brick
-#d_x = dx[340:385]
-#d_y = dy[340:385]
-
-#for 4 brick
-#d_x = dx#[340:380]
-#d_y = dy#[340:380]
-
-# FOR 25
-#d_x = dx[300:348]
-#d_y = dy[300:348]
-
-# FOR 35
-#d_x = dx[270:320]
-#d_y = dy[270:320]
-
-
-# FOR 30
-#d_x = dx[290:325]
-#d_y = dy[290:325]
-
-
-#FOR 40 DOES NOT WORK
-#d_x = dx[260:300]
-#d_y = dy[260:300]
-
-#FOR 20  DOES NOT WORK 
-#d_x = dx[300:400]
-#d_y = dy[300:400]
-
 f = s.data.fitter()
 
-f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s)', 'A1, x0, s, A2', G= Gaussian, S = Step) 
-#f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s)', 'A1,x0,s,A2', G = Gaussian, S = Step)
+#f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s) + L(x,m,b)', 'A1, x0, s, A2,m,b', G= Gaussian, S = Step, L = Line) 
+f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s)', 'A1,x0,s,A2', G = Gaussian, S = Step)
 
 y_error = dy**(1/2)
 
 f.set_data(xdata = dx, ydata = dy, eydata = y_error)
-f.set(s = 50)
+f.set(s = 50)#, b=0)
 
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
-#click_x3, click_y3 = f.ginput()[0]
+click_x3, click_y3 = f.ginput()[0]
 f.set(xmin = click_x1 - 100, xmax = click_x1 + 100)
 
-f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1,  plot_guess = True, xlabel = 'Channel',
+f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y3,  plot_guess = True, xlabel = 'Channel',
       ylabel = 'Count')
 f.set(plot_guess = True, ymin = 1)
 f.fit()
 print(f)
 
-A1, x0, s1, A2= f.results[0]
+A1, x0, s1, A2, m, b = f.results[0]
 x = dx
 step = A2*Step(x-x0, s1)
 Gua = A1*Gaussian(x-x0, s1)
+#l = Line(x, m,b )
 
 
-#alloy_legend = ["Rod", "background", "Step Function", "Gaussian"]
-#s.plot.xy.data([dx,dx,dx],\
-#                  [dy,step,Gua],\
-#                  xlabel = 'Bin',\
-#                  ylabel = 'Counts',\
-#                  label = alloy_legend,\
-#                  legend = 'right')
+alloy_legend = ["Rod", "Gaussian", "Step Function"]
+s.plot.xy.data([dx,dx,dx,dx],\
+                  [dy,l, Gua,step],\
+                  xlabel = 'Bin',\
+                  ylabel = 'Counts',\
+                  label = alloy_legend,\
+                  legend = 'right')
 
 #f(plot_all_data = True)
