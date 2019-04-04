@@ -32,15 +32,12 @@ def Step(x, sigma):
 
 #gaussian and step should have the same x_0 and the same sigma 
 
+#chose data: 
+rod = s.data.load('ENal_40deg.dat')
+norod = s.data.load('ENnorod_40deg.dat')
+y_error = norod[1]**(1/2)
 
-
-rod = s.data.load('ENal_30deg.dat')
-norod = s.data.load('ENnorod_30deg.dat')
-
-#rodef = np.asarray(np.loadtxt('30deg_rodY_efficiency.txt', delimiter=' ')) 
-#norodef = np.asarray(np.loadtxt('30deg_norodY_efficiency.txt', delimiter=' ')) 
-
-#alloy_legend = ["Rod", "No Rod", "Subtraction", "Efficiancy"] 
+#alloy_legend = ["Rod", "No Rod"] 
 #s.plot.xy.data([rod[0],norod[0]],\
 #                  [rod[1],norod[1]],\
 #                  xlabel = 'Bin',\
@@ -48,15 +45,30 @@ norod = s.data.load('ENnorod_30deg.dat')
 #                  label = alloy_legend,\
 #                  legend = 'right')
 
+#FIT FOR BACKGROUND LINE FIRST: 
+h = s.data.fitter() 
+h.set_functions('L(x,m,b)', 'm,b', L = Line)
+
+h.set_data(xdata=norod[0], ydata=norod[1], eydata = y_error)
+h.set(xmin = 700, xmax = 1700, ymin = 1)
+
+click_x2, click_y2 = h.ginput()[0]
+click_x3, click_y3 = h.ginput()[0]
+h.set(b =1 , m = (click_y2-click_y3)/(click_x2-click_x3) , plot_guess = True, xlabel = "Energy", ylabel = 'Count' )
+h.fit()
+print(h)
+
+Bm, Bb = h.results[0] 
+
+
 f = s.data.fitter()
 
-f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s) + L(x,m,b)', 'A1, x0, s, A2, m,b', G= Gaussian, S = Step, L=Line) 
+f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s) + L(x,m,b)', 'A1, x0, s, A2', G= Gaussian, S = Step, L=Line, m=Bm, b = Bb) 
 #f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s)', 'A1,x0,s,A2', G = Gaussian, S = Step)
 
-y_error = norod[1]**(1/2)
 
 f.set_data(xdata = norod[0], ydata = norod[1], eydata = y_error)
-f.set(s = 15, b=1)
+f.set(s = 15)
 
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
@@ -64,13 +76,26 @@ click_x3, click_y3 = f.ginput()[0]
 
 f.set(xmin=click_x1-100, xmax=click_x1+100)
 
-f.set(x0 = click_x1, A1= click_y1, A2 = click_y3 - click_y2, m = (click_y2-click_y3)/(click_x2-click_x3),  plot_guess = False, xlabel = 'Channel',
+f.set(x0 = click_x1, A1= click_y1, A2 = click_y3 - click_y2,  plot_guess = False, xlabel = 'Energy keV',
       ylabel = 'Count')
 f.set(plot_guess = False, ymin = 2)
 f.fit()
 print(f)
 
-BA1, Bx0, Bs, BA2, Bm, Bb = f.results[0]
+
+BA1, Bx0, Bs, BA2 = f.results[0]
+x_axis = norod[0]
+l = Line(x_axis,Bm,Bb)
+gaus = BA1*Gaussian(x_axis-Bx0, Bs) 
+st = BA2*Step(x_axis-Bx0, Bs)
+
+#s.plot.xy.data([x_axis,x_axis,x_axis,x_axis],\
+#                  [norod[1],l,st,gaus],\
+#                  xlabel = 'Bin',\
+#                  ylabel = 'Counts')
+
+
+
 
 g = s.data.fitter()
 g.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s) + A3*(bA1*G(x-bx0, bs) + bA2*S(x-bx0, bs) + L(x,bm,bb)) ', 'A1, x0, s, A2, A3', G= Gaussian, S = Step, L=Line,bA1=BA1, bs=Bs, bx0=Bx0, bA2=BA2, bm=Bm, bb=Bb) 
@@ -79,12 +104,13 @@ y_error = rod[1]**(1/2)
 
 g.set_data(xdata = rod[0], ydata = rod[1], eydata = y_error)
 g.set(s = 15, A3=1)
+g.set(xmin=400, xmax=600)
 
 click_x1, click_y1 = g.ginput()[0]
 click_x2, click_y2 = g.ginput()[0]
 click_x3, click_y3 = g.ginput()[0]
 
-g.set(xmin=click_x1-100, xmax=click_x1+100)
+
 
 g.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y1, plot_guess = False, xlabel = 'Channel',
       ylabel = 'Count')
@@ -98,14 +124,15 @@ step = A2*Step(x-x0, s1)
 Gua = A1*Gaussian(x-x0, s1)
 back = A3*(BA1*Gaussian(x-Bx0, Bs) + BA2*Step(x-Bx0, Bs) + Line(x,Bm,Bb))
 
-
+#
 #alloy_legend = ["Rod", "background", "Step Function", "Gaussian"]
 #s.plot.xy.data([x,x,x,x],\
-#                  [rodef,back,step,Gua],\
+#                  [rod[1],back,step,Gua],\
 #                  xlabel = 'Bin',\
 #                  ylabel = 'Counts',\
 #                  label = alloy_legend,\
 #                  legend = 'right')
 
 
+#f(plot_all_data = True)
 
