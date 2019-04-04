@@ -81,12 +81,12 @@ plt.show()
 #now perform a fit 
 f = s.data.fitter()
 f.set_functions('m*x + b ', 'm, b')
-f.set_data(xdata = x_axis, ydata = inverse_ene, eydata = inverse_ene_err)
-f.set(m = m_theo)
+f.set_data(ydata = x_axis, xdata = inverse_ene, eydata = x_err)
+f.set(m = 1/m_theo)
 ##
 ##### CLICK
-f.set(plot_guess = False, xlabel = '1-cos'r'($\theta$)',
-     ylabel = '(1/E1) - (1/E2)')
+f.set(plot_guess = False, ylabel = '1-cos'r'($\theta$)',
+     xlabel = '(1/E1) - (1/E2)')
 f.fit()
 print(f)
 
