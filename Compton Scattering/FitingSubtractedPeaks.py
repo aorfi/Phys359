@@ -57,7 +57,7 @@ f.set(s = 50)#, b=0)
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
 click_x3, click_y3 = f.ginput()[0]
-f.set(xmin = click_x1 - 100, xmax = click_x1 + 100)
+f.set(xmin = 500, xmax = 800)
 
 f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y3,  plot_guess = True, xlabel = 'Channel',
       ylabel = 'Count')
@@ -65,7 +65,7 @@ f.set(plot_guess = True, ymin = 1)
 f.fit()
 print(f)
 
-A1, x0, s1, A2, m, b = f.results[0]
+A1, x0, s1, A2= f.results[0]
 x = dx
 step = A2*Step(x-x0, s1)
 Gua = A1*Gaussian(x-x0, s1)
@@ -73,8 +73,8 @@ Gua = A1*Gaussian(x-x0, s1)
 
 
 alloy_legend = ["Rod", "Gaussian", "Step Function"]
-s.plot.xy.data([dx,dx,dx,dx],\
-                  [dy,l, Gua,step],\
+s.plot.xy.data([dx,dx,dx],\
+                  [dy,Gua,step],\
                   xlabel = 'Bin',\
                   ylabel = 'Counts',\
                   label = alloy_legend,\
