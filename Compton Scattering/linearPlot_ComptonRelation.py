@@ -13,47 +13,42 @@ from tempfile import TemporaryFile
 
 #start with the arrays of data: 
 
-###### NO LINEAR
-#c = np.asarray([323.91, 306.6, 295.75])
-#err_c = np.asarray([0.37, 1.2, 0.34])
+ene = np.asarray([583.65, 555.7, 532.12, 504.52 ]) #[20, 25deg, 30deg,35deg, 40]
+err_ene = np.asarray([0.26, 0.32, 0.34, 0.36])
+
+angle = np.asarray([25,30,35,40])*np.pi/180
+err_angle = np.asarray([0.5,0.5,0.5,0.5])*np.pi/180
 
 
-###### LINEAR WORKS BETTER 
-c = np.asarray([320.9, 306.6, 294.1]) #[20, 25deg, 30deg,35deg, 40]
-err_c = np.asarray([1.8, 1.2, 2.6])
+n = ene.size
 
-angle = np.asarray([20,25,30,35,40])*np.pi/180
-err_angle = np.asarray([0.5,0.5,0.5,0.5,0.5])*np.pi/180
-
-
-n = c.size
-
-#translate them by Xbin numbers, where X is the number of bins obtained from trueAngle analysis 
-Xbin = (371.29-368.14)/2 
-bin_translation = Xbin*np.ones(n)
-
-err_bintranslation = np.ones(n)*np.sqrt(pow(0.54,2)+pow(0.16,2))
-
-#correct channel: 
-channel = np.subtract(c, bin_translation) #subtracting! 
-err_ch = np.sqrt(np.add(pow(err_bintranslation,2),pow(err_c,2)))
-
-#now define m and b, fit parameters of the calibration: 
-m = 0.556622*np.ones(n) 
-err_m = 0.00028* np.ones(n) 
-b = -4.685* np.ones(n) 
-err_b = 0.056 *np.ones(n) 
-
-#find error that comes from subtracting channel - b: 
-err_ch_b = np.sqrt(np.add(err_ch**2,err_b**2))
-ch_b = np.subtract(channel, b)
-
-#now find energy and the error on energy: 
-
-ene = np.divide(ch_b,m)
-alpha = pow(np.divide(err_ch_b, ch_b),2)
-beta = pow(np.divide(err_m, m),2)
-err_ene = ene*np.sqrt(alpha+beta)
+#CODE FOR PROPAGATION OF ERRORS DUE TO BIN TRANSLATION
+##translate them by Xbin numbers, where X is the number of bins obtained from trueAngle analysis 
+#Xbin = (371.29-368.14)/2 
+#bin_translation = Xbin*np.ones(n)
+#
+#err_bintranslation = np.ones(n)*np.sqrt(pow(0.54,2)+pow(0.16,2))
+#
+##correct channel: 
+#channel = np.subtract(c, bin_translation) #subtracting! 
+#err_ch = np.sqrt(np.add(pow(err_bintranslation,2),pow(err_c,2)))
+#
+##now define m and b, fit parameters of the calibration: 
+#m = 0.556622*np.ones(n) 
+#err_m = 0.00028* np.ones(n) 
+#b = -4.685* np.ones(n) 
+#err_b = 0.056 *np.ones(n) 
+#
+##find error that comes from subtracting channel - b: 
+#err_ch_b = np.sqrt(np.add(err_ch**2,err_b**2))
+#ch_b = np.subtract(channel, b)
+#
+##now find energy and the error on energy: 
+#
+#ene = np.divide(ch_b,m)
+#alpha = pow(np.divide(err_ch_b, ch_b),2)
+#beta = pow(np.divide(err_m, m),2)
+#err_ene = ene*np.sqrt(alpha+beta)
 
 
 #original energy of incoming ray: 
@@ -65,8 +60,7 @@ c = 299792458
 inverse_ene = np.subtract(np.divide(1,ene), np.divide(1,e_0))
 #finding error on delta lambda: 
 
-inverse_ene_err = err_ene * np.power(np.divide(1,ene),2) #AN: If i do this to the error bars it works lol but otherwise they are WAY too big 
-#ELISA: I corrected it because inverse_ene is not the same thing as 1/ene :) 
+inverse_ene_err = (err_ene) * np.power(np.divide(1,ene),2) 
     
 #the x axis will be (1 - cos(theta)): 
 x_axis = 1-np.cos(angle)

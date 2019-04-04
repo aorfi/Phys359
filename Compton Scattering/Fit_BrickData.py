@@ -93,14 +93,14 @@ step = A2*Step(x-x0, s1)
 Gua = A1*Gaussian(x-x0, s1)
 l = Line(x, m1,b1 )
 
-
-alloy_legend = ["Rod", "Gaussian", "Step Function", "Background"]
-s.plot.xy.data([dx,dx,dx,dx],\
-                  [dy,Gua,step,l],\
-                  xlabel = 'Bin',\
-                  ylabel = 'Counts',\
-                  label = alloy_legend,\
-                  legend = 'right')
+#
+#alloy_legend = ["Rod", "Gaussian", "Step Function", "Background"]
+#s.plot.xy.data([dx,dx,dx,dx],\
+#                  [dy,Gua,step,l],\
+#                  xlabel = 'Bin',\
+#                  ylabel = 'Counts',\
+#                  label = alloy_legend,\
+#                  legend = 'right')
 
 #f(plot_all_data = True)
 
