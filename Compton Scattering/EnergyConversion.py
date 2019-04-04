@@ -7,7 +7,7 @@ Created on Wed Apr  3 17:32:02 2019
 import spinmob as s
 import numpy as np
 
-data = s.data.load('al_20deg.dat')
+data = s.data.load('norod_20deg.dat')
 EnData =np.zeros((data[0].size,data[1].size))
 
 for i in range(data[0].size):
