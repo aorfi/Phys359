@@ -36,9 +36,13 @@ def Step(x, sigma):
 
 
 
-dx = np.asarray(np.loadtxt('20edegX.txt', delimiter=' '))
-dy = np.asarray(np.loadtxt('20edegY.txt', delimiter=' '))
-y_sum = np.asarray(np.loadtxt('20edegY_error.txt'))
+#dx = np.asarray(np.loadtxt('20edegX.txt', delimiter=' '))
+#dy = np.asarray(np.loadtxt('20edegY.txt', delimiter=' '))
+#y_sum = np.asarray(np.loadtxt('20edegY_error.txt'))
+    
+data = s.data.load('1brickEFF.dat')
+dx = data[0]
+dy = data[1]
 
 #for 1 brick
 #d_x = dx[340:390]
@@ -83,7 +87,7 @@ f = s.data.fitter()
 f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s)', 'A1, x0, s, A2', G= Gaussian, S = Step) 
 #f.set_functions('A1*G(x-x0, s) + A2*S(x-x0, s)', 'A1,x0,s,A2', G = Gaussian, S = Step)
 
-y_error = y_sum**(1/2)
+y_error = dy**(1/2)
 
 f.set_data(xdata = dx, ydata = dy, eydata = y_error)
 f.set(s = 50)
