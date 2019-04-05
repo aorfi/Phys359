@@ -7,7 +7,7 @@ Created on Wed Apr  3 17:32:02 2019
 import spinmob as s
 import numpy as np
 
-data = s.data.load('norod_45deg.dat')
+data = s.data.load('norod_32deg.dat')
 EnData =np.zeros((data[0].size,data[1].size))
 
 #converts data to energy 
@@ -32,4 +32,4 @@ for i in range(d1[0].size):
      d1[1][i] = d[1][i]/eff
 d1.save_file()
 
-
+#

@@ -50,7 +50,7 @@ h = s.data.fitter()
 h.set_functions('L(x,m,b)', 'm,b', L = Line)
 
 h.set_data(xdata=norod[0], ydata=norod[1], eydata = y_error)
-h.set(xmin = 800, xmax = 1700, ymin = 1)
+h.set(xmin = 1000, xmax = 1700, ymin = 1)
 
 click_x2, click_y2 = h.ginput()[0]
 click_x3, click_y3 = h.ginput()[0]
@@ -104,7 +104,7 @@ y_error = rod[1]**(1/2)
 
 g.set_data(xdata = rod[0], ydata = rod[1], eydata = y_error)
 g.set(s = 15, A3=1)
-g.set(xmin=300, xmax=550)
+g.set(xmin=500, xmax=700)
 
 click_x1, click_y1 = g.ginput()[0]
 click_x2, click_y2 = g.ginput()[0]
@@ -124,14 +124,14 @@ step = A2*Step(x-x0, s1)
 Gua = A1*Gaussian(x-x0, s1)
 back = A3*(BA1*Gaussian(x-Bx0, Bs) + BA2*Step(x-Bx0, Bs) + Line(x,Bm,Bb))
 
-#
-#alloy_legend = ["Rod", "background", "Step Function", "Gaussian"]
-#s.plot.xy.data([x,x,x,x],\
-#                  [rod[1],back,step,Gua],\
-#                  xlabel = 'Bin',\
-#                  ylabel = 'Counts',\
-#                  label = alloy_legend,\
-#                  legend = 'right')
+
+alloy_legend = ["Rod", "background", "Step Function", "Gaussian"]
+s.plot.xy.data([x,x,x,x],\
+                  [rod[1],back,step,Gua],\
+                  xlabel = 'Bin',\
+                  ylabel = 'Counts',\
+                  label = alloy_legend,\
+                  legend = 'right')
 
 
 #f(plot_all_data = True)

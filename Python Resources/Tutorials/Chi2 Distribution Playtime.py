@@ -2,7 +2,7 @@ import scipy.stats as stats
 import spinmob as sm
 
 # Degrees of freedom
-DOF = 2
+DOF = 4
 
 # Plot the reduced chi^2 distribution
 sm.plot.xy.function('DOF*P(x*DOF,DOF)', 1e-6, 5, 100000, 

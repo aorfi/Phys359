@@ -13,11 +13,11 @@ from tempfile import TemporaryFile
 
 #start with the arrays of data: 
 
-ene = np.asarray([583.65, 555.7, 532.12, 504.52 ]) #[20, 25deg, 30deg,35deg, 40]
-err_ene = np.asarray([0.26, 0.32, 0.34, 0.36])
+ene = np.asarray([583.65, 555.7, 532.12, 504.52, 496.57, 476.19]) #[25deg, 30deg,35deg, 40, 42,45]
+err_ene = np.asarray([0.26, 0.32, 0.34, 0.36,0.45, 0.4])
 
-angle = np.asarray([25,30,35,40])*np.pi/180
-err_angle = np.asarray([0.5,0.5,0.5,0.5])*np.pi/180
+angle = np.asarray([25,30,35,40,42,45])*np.pi/180
+err_angle = np.asarray([0.5,0.5,0.5,0.5,0.5,0.5])*np.pi/180
 
 
 n = ene.size
