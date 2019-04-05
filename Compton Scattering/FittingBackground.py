@@ -33,8 +33,8 @@ def Step(x, sigma):
 #gaussian and step should have the same x_0 and the same sigma 
 
 #chose data: 
-rod = s.data.load('ENal_20deg.dat')
-norod = s.data.load('ENnorod_20deg.dat')
+rod = s.data.load('ENal_25deg.dat')
+norod = s.data.load('ENnorod_25deg.dat')
 y_error = norod[1]**(1/2)
 
 #alloy_legend = ["Rod", "No Rod"] 
@@ -104,7 +104,7 @@ y_error = rod[1]**(1/2)
 
 g.set_data(xdata = rod[0], ydata = rod[1], eydata = y_error)
 g.set(s = 15, A3=1)
-g.set(xmin=500, xmax=700)
+g.set(xmin=400, xmax=700)
 
 click_x1, click_y1 = g.ginput()[0]
 click_x2, click_y2 = g.ginput()[0]
