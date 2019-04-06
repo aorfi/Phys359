@@ -12,6 +12,7 @@ from numpy import pi, exp, real
 from scipy.special import wofz, erf
 import matplotlib.pyplot as plt
 from scipy.special import wofz, erf
+from scipy.special import erfc
 ROOT2 = 2.0**0.5 # Code speedup
 
 def Gaussian(x, sigma):
@@ -27,6 +28,12 @@ def Step(x, sigma):
 
 def Quad(x,a,b,c):
     return a*x**2 + b*x + c
+
+def skew_gaus(x,sigma, beta):
+    return exp((x)/beta)*erfc((x)/((2**0.5)*sigma) + (sigma)/((2**0.5)*beta))
+#sigma is the standard dev of the gaussian 
+#beta is a new parameter we are fitting which determines the skewedness of the gaussian. 
+#the skewed gaussian should have x-x0 like the other gaussian 
     
 #OFFSET 
 #these are 3 functions that affect the gaussian curve that we are fitting for! 
@@ -121,109 +128,115 @@ a1,b1,c1 = g.results[0]
 #
 f = s.data.fitter()
 
-def voigt(x, sigma, gamma):
-    """
-    Returns a Voigt function (a convolution of a Lorentzian and Gaussian) 
-    centered at x=0 with Gaussian standard deviation sigma and Lorentzian 
-    half-width gamma. The function is normalized to have unity area.
-    
-    Parameters
-    ----------
-    x:
-        Distance from center of peak.
-    sigma = 1:
-        Standard deviation of Gaussian ~ exp(-x**2/(2*sigma**2)) 
-    gamma = 1:
-        Halfwidth of Lorentzian ~ 1/(1+x**2/gamma**2)
-    """
-    return real(wofz((x + 1j*gamma)/sigma/ROOT2)) / sigma / (2*pi)**0.5   
+#def skew_gaus(x,sigma, beta):
+#    return exp((x)/beta)*erfc((x)/((2**0.5)*sigma) + (sigma)/((2**0.5)*beta))
+#sigma is the standard dev of the gaussian 
+#beta is a new parameter we are fitting which determines the skewedness of the gaussian. 
+#the skewed gaussian should have x-x0 like the other gaussian 
 
-def fitfunction2(x, A1, x0,x1, s, g, A2, A, A3, v):
-    return A1*Gaussian(x-x0, s)  + A*Quad(x,a1,b1,c1) + A2*Step(x-x1, g) + A3*np.sin(v*x)
+
+def fitfunction2(x, A1, x0, s, A2, A3, beta, A4):
+    return A1*Gaussian(x-x0, s) + A2*Step(x-x0, s) + A3*skew_gaus(x-x0,s, beta) + A4*Quad(x,a1,b1,c1)
      
-f.set_functions('ft(x, A1, x0, x1, s, g, A2, A, A3, v)+c' , 'A1, x0, x1, s, g, A2, A, A3, v, c=0', ft=fitfunction2) 
+f.set_functions('ft(x, A1, x0, s, A2, A3, beta, A4)' , ' A1, x0, s, A2, A3, beta, A4', ft=fitfunction2) 
 
 
 f.set_data(xdata = dx, ydata = dy, eydata = y_error)
-f.set(s = 15, g = 15 , A = 1, A3 = 1, v = np.pi)
+f.set(s = 15, beta = 300 , A3 = 10000, A4 = 1)
 
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
 click_x3, click_y3 = f.ginput()[0]
-f.set(xmin = 500, xmax = 800)
+f.set(xmin = 500, xmax = 750)
 
-f.set(x0 = click_x1, A1= click_y1 ,A2 = click_y2 - click_y3, x1 = click_x1, plot_guess = True, xlabel = 'Channel',
+f.set(x0 = click_x1, A1= click_y1 ,A2 = click_y2 - click_y3, plot_guess = True, xlabel = 'Channel',
       ylabel = 'Count') 
 f.set(plot_guess = True, ymin = 1)
 f.fit()
 print(f)
 
-A1, x0,x1, s1, g1, A2, A, A3, v, c= f.results[0]
+A1, x0, s1, A2, A3, beta, A4 = f.results[0]
 
-##step = A2*Step(dx-x0, s1)
-#Gua = A1*voigt(dx-x0, s1,g1)
-#back = A*Quad(dx, a1,b1,c1)
+step = A2*Step(dx-x0, s1)
+Gua = A1*Gaussian(dx-x0, s1)
+back = A4*Quad(dx, a1,b1,c1)
+skew = A3*skew_gaus(dx-x0,s1,beta)
 #
 #
-#alloy_legend = ["Rod", "voigt", "Step Function", "Background"]
-#s.plot.xy.data([dx,dx,dx,dx],\
-#                  [dy,Gua,step,back],\
-#                  xlabel = 'Bin',\
-#                  ylabel = 'Counts',\
-#                  label = alloy_legend,\
-#                  legend = 'right')
+alloy_legend = ["Rod", "Gaussian", "Step Function", "Skewed Gaussian", "Background"]
+s.plot.xy.data([dx,dx,dx,dx,dx],\
+                  [dy,Gua,step,skew,back],\
+                  xlabel = 'Energy',\
+                  ylabel = 'Counts',\
+                  label = alloy_legend,\
+                  legend = 'right')
 
 
-#FIT WITH Exponential FUNCTION AS BACKGROUND
-#def exponential(x,a,b): 
-#    return np.exp(-(x-a)*b)
-#    
+#TRYING AGAIN WITH QUADRATIC BACKGROUND BUT THIS TIME FITTING SKEWED GAUSSIAN FIRST 
+
 #g = s.data.fitter()
-#g.set_functions('E(x,a,b)', 'a,b', E= exponential)   
+#g.set_functions('Q(x,a,b,c)', 'a,b,c', Q= Quad)   
 #g.set_data(xdata = dx, ydata = dy, eydata = y_error)
-#
+
 #g.set(xmin = 750, xmax = 1000)
 #g.set(ymin = 1)
 #
-#g.set(a=800,b=1,  plot_guess = True, xlabel = 'Channel',
+#g.set(b=1,a=1,c=1,  plot_guess = True, xlabel = 'Energy',
 #      ylabel = 'Count')
 #g.fit()
 #print(g)
-#a1,b1 = g.results[0]
+#a1,b1,c1 = g.results[0]
+##
 #
+#h = s.data.fitter() 
+#h.set_functions('A* Sk(x-x1,sig,beta)', 'A,x1,sig,beta', Sk = skew_gaus)   
+#h.set_data(xdata = dx, ydata = dy, eydata = y_error)
+#h.set(xmin = 300, xmax = 500)
+#h.set(ymin = 1)
+#click_x1, click_y1 = h.ginput()[0]
+#
+#
+#h.set(x1 = click_x1, A = click_y1, sig = 15, beta = 300,plot_guess = True, xlabel = 'Energy',
+#      ylabel = 'Count')
+#h.fit()
+#print(h)
+#A,x1,sig1,beta1= h.results[0]
+
 #f = s.data.fitter()
 #
-#def fitfunction3(x, A1, x0, s, A2, A):
-#    return A1*Gaussian(x-x0, s) + A2*Step(x-x0, s) + A*exponential(x,a1,b1)
+#
+#def fitfunction2(x, A1, x0, s, A2, A4):
+#    return A1*Gaussian(x-x0, s) + A2*Step(x-x0, s) + A*skew_gaus(x-x1,sig1, beta1) + A4*Quad(x,a1,b1,c1)
 #     
-#f.set_functions('ft(x, A1, x0, s, A2,A)' , 'A1, x0, s, A2,A', ft=fitfunction3) 
+#f.set_functions('ft(x, A1, x0, s, A2, A4)' , ' A1, x0, s, A2, A4', ft=fitfunction2) 
 #
 #
 #f.set_data(xdata = dx, ydata = dy, eydata = y_error)
-#f.set(s = 50, A = 1)
+#f.set(s = 15, A4 = 1)
 #
 #click_x1, click_y1 = f.ginput()[0]
 #click_x2, click_y2 = f.ginput()[0]
 #click_x3, click_y3 = f.ginput()[0]
 #f.set(xmin = 500, xmax = 800)
 #
-#f.set(x0 = click_x1, A1= click_y1, A2 = click_y2 - click_y3,  plot_guess = True, xlabel = 'Channel',
-#      ylabel = 'Count')
+#f.set(x0 = click_x1, A1= click_y1 ,A2 = click_y2 - click_y3, plot_guess = True, xlabel = 'Channel',
+#      ylabel = 'Count') 
 #f.set(plot_guess = True, ymin = 1)
 #f.fit()
 #print(f)
-
-#A1, x0, s1, A2, A= f.results[0]
+#
+#A1, x0, s1, A2, A4 = f.results[0]
 #
 #step = A2*Step(dx-x0, s1)
 #Gua = A1*Gaussian(dx-x0, s1)
-#back = A*exponential(dx,b1)
+#back = A4*Quad(dx, a1,b1,c1)
+#skew = A*skew_gaus(dx-x1,sig1,beta1)
+###
 ##
-#
-#alloy_legend = ["Rod", "Gaussian", "Step Function", "Background"]
-#s.plot.xy.data([dx,dx,dx,dx],\
-#                  [dy,Gua,step,back],\
-#                  xlabel = 'Bin',\
+#alloy_legend = ["Rod", "Gaussian", "Step Function", "Skewed Gaussian", "Background"]
+#s.plot.xy.data([dx,dx,dx,dx,dx],\
+#                  [dy,Gua,step,skew,back],\
+#                  xlabel = 'Energy',\
 #                  ylabel = 'Counts',\
 #                  label = alloy_legend,\
 #                  legend = 'right')
