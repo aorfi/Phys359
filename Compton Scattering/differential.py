@@ -17,7 +17,7 @@ alpha = E0/me
 name_rod = ['ENal_25deg.dat','ENal_30deg.dat','ENal_35deg.dat','ENal_40deg.dat']#,'ENal_42deg.dat','ENal_45deg.dat']
 name_norod = ['ENnorod_25deg.dat','ENnorod_30deg.dat','ENnorod_35deg.dat','ENnorod_40deg.dat']#,'ENnorod_42deg.dat','ENnorod_45deg.dat']
 
-#i = 5
+#i = 0
 #x1 = s.data.load(name_rod[i])[0]
 #x2 = s.data.load(name_norod[i])[0]
 #y1 = s.data.load(name_rod[i])[1]
