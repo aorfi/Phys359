@@ -44,9 +44,9 @@ def skew_gaus(x,sigma, beta):
 #gaussian and step should have the same x_0 and the same sigma 
 
 #
-data = s.data.load('1brickEFF.dat')
+data = s.data.load('2brickEFF.dat')
 dx = data[0]
-dy = data[1]/400.96000000000004
+dy = data[1]/406.12
 y_error = (dy)**(1/2)
 #
 #
@@ -118,7 +118,7 @@ g.set_functions('Q(x,a,b,c)', 'a,b,c', Q= Quad)
 g.set_data(xdata = dx, ydata = dy, eydata = y_error)
 
 g.set(xmin = 750, xmax = 1700)
-g.set(ymin = 1)
+g.set(ymin = 0.01)
 
 g.set(b=0.1,a=0.1,c=1,  plot_guess = True, xlabel = 'Channel',
       ylabel = 'Count')
@@ -171,7 +171,7 @@ s.plot.xy.data([dx,dx,dx,dx,dx,dx],\
                   ylabel = 'Counts',\
                   label = alloy_legend,\
                   legend = 'right')
-d = s.data.databox()
+
 
 for i in range(dx.size):
     if dx[i]-x0 <1:

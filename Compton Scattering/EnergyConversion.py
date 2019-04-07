@@ -7,7 +7,7 @@ Created on Wed Apr  3 17:32:02 2019
 import spinmob as s
 import numpy as np
 
-data = s.data.load('norod_32deg.dat')
+data = s.data.load('3brickEFF.dat')
 EnData =np.zeros((data[0].size,data[1].size))
 
 #converts data to energy 
@@ -15,7 +15,7 @@ for i in range(data[0].size):
     EnData[1][i] = data[1][i]
     EnData[0][i] = (data[0][i]-0.056)/(0.556622)
     
-#s.plot.xy.data(data[0], EnData[1])
+s.plot.xy.data(data[0], data[1]/400.68)
     
 #saves files
 d = s.data.databox()
@@ -30,6 +30,6 @@ for i in range(d1[0].size):
      a = d[0][i]
      eff = 1/100*(2.5*10**(-12)*a**5 - 6.3*10**(-9)*a**4 + 5.9*10**(-6)*a**3 - 0.0023*a**2 + 0.17*a + 95) #efficiency curve
      d1[1][i] = d[1][i]/eff
-d1.save_file()
+#d1.save_file()
 
 #
