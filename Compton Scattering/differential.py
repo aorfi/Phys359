@@ -30,8 +30,8 @@ name_norod = ['ENnorod_25deg.dat','ENnorod_30deg.dat','ENnorod_35deg.dat','ENnor
 ## INTITIATE DATA
 angle = np.asarray([25,30,35,40])*np.pi/180
 #angle_er = 
-
-time = [400.78000000000003, 400.7 ,400.48, 401.5]#, 400.78000000000003, 400.56]
+time = [400.78000000000003, 393, 405, 399]
+#time = [400.78000000000003, 400.7 ,400.48, 401.5]#, 400.78000000000003, 400.56]
 total_count = np.zeros(angle.size)
 
 
@@ -73,14 +73,14 @@ x_data = KNformula(angle)
 #plt.plot(x_data, rate, '.')
 #plt.show()
 
-### FITTING
+## FITTING
 f = s.data.fitter()
-f.set_functions('m*x+b','m,b')
+f.set_functions('m*x+b','m, b')
 y_error = np.sqrt(total_count)/time
 f.set_data(xdata = x_data, ydata = rate , eydata = y_error)
-f.set(m = 1, b = 2)
-f.set(plot_guess = True, xlabel = 'thickness',
-      ylabel = 'I')
+f.set(m = 19.7, b = 29)
+f.set(plot_guess = False, xlabel = 'KN formula',
+      ylabel = 'Rate')
 f.fit()
 print(f)
 
