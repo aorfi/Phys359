@@ -46,7 +46,7 @@ def skew_gaus(x,sigma, beta):
 #
 data = s.data.load('2brickEFF.dat')
 dx = data[0]
-dy = data[1]/406.12
+dy = data[1]
 y_error = (dy)**(1/2)
 #
 #
