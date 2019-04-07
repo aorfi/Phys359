@@ -70,9 +70,9 @@ def Thompson(x):
 x_data_KN = KNformula(angle)
 x_data_T = Thompson(angle)
 
-plt.plot(rate, x_data_KN, '.')
-plt.plot(rate, x_data_T, '.')
-plt.show()
+#plt.plot(rate, x_data_KN, '.')
+#plt.plot(rate, x_data_T, '.')
+#plt.show()
 
 ## FITTING
 #f = s.data.fitter()
@@ -84,6 +84,8 @@ plt.show()
 #      ylabel = 'Rate')
 #f.fit()
 #print(f)
+
+
 #
 
 
