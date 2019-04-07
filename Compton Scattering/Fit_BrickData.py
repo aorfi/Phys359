@@ -46,7 +46,7 @@ def skew_gaus(x,sigma, beta):
 #
 data = s.data.load('1brickEFF.dat')
 dx = data[0]
-dy = data[1]
+dy = data[1]/400.96000000000004
 y_error = (dy)**(1/2)
 #
 #
@@ -117,10 +117,10 @@ g = s.data.fitter()
 g.set_functions('Q(x,a,b,c)', 'a,b,c', Q= Quad)   
 g.set_data(xdata = dx, ydata = dy, eydata = y_error)
 
-g.set(xmin = 750, xmax = 1000)
+g.set(xmin = 750, xmax = 1700)
 g.set(ymin = 1)
 
-g.set(b=1,a=1,c=1,  plot_guess = True, xlabel = 'Channel',
+g.set(b=0.1,a=0.1,c=1,  plot_guess = True, xlabel = 'Channel',
       ylabel = 'Count')
 g.fit()
 print(g)
@@ -142,7 +142,7 @@ f.set_functions('ft(x, A1, x0, s, A2, A3, beta, A4,C)' , ' A1, x0, s, A2, A3, be
 
 
 f.set_data(xdata = dx, ydata = dy, eydata = y_error)
-f.set(s = 30, beta = 300 , A3 = 10000, A4 = 1, C=1)
+f.set(s = 30, beta = 10 , A3 = 700, A4 = 1, C=1)
 
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
@@ -161,15 +161,22 @@ step = A2*Step(dx-x0, s1)
 Gua = A1*Gaussian(dx-x0, s1)
 back = A4*Quad(dx, a1,b1,c1)
 skew = A3*skew_gaus(dx-x0,s1,beta)
+fit = A1*Gaussian(dx-x0, s1) + A2*Step(dx-x0, s1) + A3*skew_gaus(dx-x0,s1, beta) + A4*Quad(dx,a1,b1,c1)+C
 #
 #
-alloy_legend = ["Rod", "Gaussian", "Step Function", "Skewed Gaussian", "Background"]
-s.plot.xy.data([dx,dx,dx,dx,dx],\
-                  [dy,Gua,step,skew,back],\
+alloy_legend = ["Rod", "Gaussian", "Step Function", "Skewed Gaussian", "Background", "Fit"]
+s.plot.xy.data([dx,dx,dx,dx,dx,dx],\
+                  [dy,Gua,step,skew,back,fit],\
                   xlabel = 'Energy',\
                   ylabel = 'Counts',\
                   label = alloy_legend,\
                   legend = 'right')
+d = s.data.databox()
+
+for i in range(dx.size):
+    if dx[i]-x0 <1:
+        index = i
+    
 
 
 #TRYING AGAIN WITH QUADRATIC BACKGROUND BUT THIS TIME FITTING SKEWED GAUSSIAN FIRST 
