@@ -67,23 +67,24 @@ def KNformula(x):
 def Thompson(x):
     return (1/2)*(1+np.cos(x)**2)
 
-#x_data = KNformula(angle)
-x_data = Thompson(angle)
+x_data_KN = KNformula(angle)
+x_data_T = Thompson(angle)
 
-#plt.plot(x_data, rate, '.')
-#plt.show()
+plt.plot(rate, x_data_KN, '.')
+plt.plot(rate, x_data_T, '.')
+plt.show()
 
 ## FITTING
-f = s.data.fitter()
-f.set_functions('m*x+b','m, b')
-y_error = np.sqrt(total_count)/time
-f.set_data(xdata = x_data, ydata = rate , eydata = y_error)
-f.set(m = 19.7, b = 29)
-f.set(plot_guess = False, xlabel = 'COMPTON FORMULA',
-      ylabel = 'Rate')
-f.fit()
-print(f)
-
+#f = s.data.fitter()
+#f.set_functions('m*x+b','m, b')
+#y_error = np.sqrt(total_count)/time
+#f.set_data(xdata = x_data, ydata = rate , eydata = y_error)
+#f.set(m = 19.7, b = 29)
+#f.set(plot_guess = False, xlabel = 'COMPTON FORMULA',
+#      ylabel = 'Rate')
+#f.fit()
+#print(f)
+#
 
 
 #    
