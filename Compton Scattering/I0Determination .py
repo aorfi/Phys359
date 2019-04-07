@@ -38,7 +38,7 @@ for i in range (0,3):
 #s.plot.xy.data([x_values,x_values],[y_values,ytest])
 
 f = s.data.fitter()
-a = 19.7666 #check this
+a = 19.7666 
 f.set_functions('I*e**(-a*x)','I,a') 
 
 y_error = y_values**(1/2)

@@ -135,27 +135,27 @@ f = s.data.fitter()
 #the skewed gaussian should have x-x0 like the other gaussian 
 
 
-def fitfunction2(x, A1, x0, s, A2, A3, beta, A4):
-    return A1*Gaussian(x-x0, s) + A2*Step(x-x0, s) + A3*skew_gaus(x-x0,s, beta) + A4*Quad(x,a1,b1,c1)
+def fitfunction2(x, A1, x0, s, A2, A3, beta, A4,C):
+    return A1*Gaussian(x-x0, s) + A2*Step(x-x0, s) + A3*skew_gaus(x-x0,s, beta) + A4*Quad(x,a1,b1,c1)+C
      
-f.set_functions('ft(x, A1, x0, s, A2, A3, beta, A4)' , ' A1, x0, s, A2, A3, beta, A4', ft=fitfunction2) 
+f.set_functions('ft(x, A1, x0, s, A2, A3, beta, A4,C)' , ' A1, x0, s, A2, A3, beta, A4,C', ft=fitfunction2) 
 
 
 f.set_data(xdata = dx, ydata = dy, eydata = y_error)
-f.set(s = 15, beta = 300 , A3 = 10000, A4 = 1)
+f.set(s = 30, beta = 300 , A3 = 10000, A4 = 1, C=1)
 
 click_x1, click_y1 = f.ginput()[0]
 click_x2, click_y2 = f.ginput()[0]
 click_x3, click_y3 = f.ginput()[0]
-f.set(xmin = 500, xmax = 750)
+f.set(xmin = 500, xmax = 725)
 
-f.set(x0 = click_x1, A1= click_y1 ,A2 = click_y2 - click_y3, plot_guess = True, xlabel = 'Channel',
+f.set(x0 = click_x1, A1= click_y1 ,A2 = click_y2 - click_y3 - Quad(click_x2,a1,b1,c1), plot_guess = True, xlabel = 'Channel',
       ylabel = 'Count') 
 f.set(plot_guess = True, ymin = 1)
 f.fit()
 print(f)
 
-A1, x0, s1, A2, A3, beta, A4 = f.results[0]
+A1, x0, s1, A2, A3, beta, A4,C = f.results[0]
 
 step = A2*Step(dx-x0, s1)
 Gua = A1*Gaussian(dx-x0, s1)
