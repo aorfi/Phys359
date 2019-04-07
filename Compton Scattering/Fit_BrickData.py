@@ -161,15 +161,18 @@ step = A2*Step(dx-x0, s1)
 Gua = A1*Gaussian(dx-x0, s1)
 back = A4*Quad(dx, a1,b1,c1)
 skew = A3*skew_gaus(dx-x0,s1,beta)
+fit = A1*Gaussian(dx-x0, s1) + A2*Step(dx-x0, s1) + A3*skew_gaus(dx-x0,s1, beta) + A4*Quad(dx,a1,b1,c1)+C
 #
 #
-alloy_legend = ["Rod", "Gaussian", "Step Function", "Skewed Gaussian", "Background"]
-s.plot.xy.data([dx,dx,dx,dx,dx],\
-                  [dy,Gua,step,skew,back],\
+alloy_legend = ["Rod", "Gaussian", "Step Function", "Skewed Gaussian", "Background", "Fit"]
+s.plot.xy.data([dx,dx,dx,dx,dx,dx],\
+                  [dy,Gua,step,skew,back,fit],\
                   xlabel = 'Energy',\
                   ylabel = 'Counts',\
                   label = alloy_legend,\
                   legend = 'right')
+d = s.data.databox()
+
 
 
 #TRYING AGAIN WITH QUADRATIC BACKGROUND BUT THIS TIME FITTING SKEWED GAUSSIAN FIRST 
