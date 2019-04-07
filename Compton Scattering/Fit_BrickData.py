@@ -173,6 +173,10 @@ s.plot.xy.data([dx,dx,dx,dx,dx,dx],\
                   legend = 'right')
 d = s.data.databox()
 
+for i in range(dx.size):
+    if dx[i]-x0 <1:
+        index = i
+    
 
 
 #TRYING AGAIN WITH QUADRATIC BACKGROUND BUT THIS TIME FITTING SKEWED GAUSSIAN FIRST 

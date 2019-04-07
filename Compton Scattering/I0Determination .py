@@ -16,7 +16,7 @@ dy = np.asarray(np.loadtxt('1brickY.txt', delimiter=' '))
 #peak values
 #these are super rough 
 x1 = 661.6219593956718 
-y1 = -8740.285017405698
+y1 = 279846.80760681233
 
 x2 = 655.3908115538952#365.6 +/- 0.18
 y2 = -3814.9191628367394
